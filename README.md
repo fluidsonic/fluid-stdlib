@@ -11,12 +11,14 @@ Potentially useful Kotlin standard library additions
 Installation
 ------------
 
-This library is [available in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.fluidsonic%22%20a%3A%22fluid-stdlib%22) as `fluid-stdlib` in the group `com.github.fluidsonic`.
+This library is [available in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.fluidsonic%22%20a%3A%22fluid-stdlib%22) as
+`fluid-stdlib` and `fluid-stdlib-jdk8` in the group `com.github.fluidsonic`.
 
 `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.github.fluidsonic:fluid-stdlib:0.9.0")
+    implementation("com.github.fluidsonic:fluid-stdlib:0.9.1")       // JDK 7
+    implementation("com.github.fluidsonic:fluid-stdlib-jdk8:0.9.1")  // JDK 8 and above
 }
 ```
 
