@@ -2,7 +2,7 @@ fluid-stdlib
 ============
 
 [![Kotlin 1.3.20](https://img.shields.io/badge/Kotlin-1.3.20-blue.svg)](http://kotlinlang.org)
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.fluidsonic/fluid-stdlib.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.fluidsonic%22%20a%3A%22fluid-stdlib%22)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.fluidsonic/fluid-stdlib.svg)](https://search.maven.org/search?q=g:com.github.fluidsonic%20a:fluid-stdlib*)
 
 Potentially useful Kotlin standard library additions
 
