@@ -38,7 +38,7 @@ fun <Bound : Comparable<Bound>> ClosedRange<Bound>.mapBounds(transform: (Bound) 
 
 
 fun <Bound : Comparable<Bound>> ClosedRange<Bound>.intersection(other: ClosedRange<Bound>) =
-	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endInclusive, other.endInclusive) }
+	overlaps(other).thenTake { maxOf(start, other.start) rangeToExcluding minOf(endInclusive, other.endInclusive) }
 
 
 fun <Bound : Comparable<Bound>> ClosedRange<Bound>.overlaps(other: ClosedRange<Bound>) =

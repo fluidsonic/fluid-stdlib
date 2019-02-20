@@ -29,7 +29,7 @@ fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.flipped() =
 
 
 fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.intersection(other: HalfOpenRange<Bound>) =
-	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endExclusive, other.endExclusive) }
+	overlaps(other).thenTake { maxOf(start, other.start) rangeToExcluding minOf(endExclusive, other.endExclusive) }
 
 
 fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.overlaps(other: HalfOpenRange<Bound>) =

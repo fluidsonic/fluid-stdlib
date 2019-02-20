@@ -1,5 +1,8 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import kotlin.math.max
+import kotlin.math.min
+
 
 fun LongRange.flipped() =
 	endInclusive .. start

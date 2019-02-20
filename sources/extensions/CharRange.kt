@@ -38,7 +38,7 @@ fun CharRange.mapBounds(transform: (Char) -> ULong) =
 
 
 fun CharRange.intersection(other: CharRange) =
-	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endInclusive, other.endInclusive) }
+	overlaps(other).thenTake { maxOf(start, other.start) rangeToExcluding minOf(endInclusive, other.endInclusive) }
 
 
 fun CharRange.overlaps(other: CharRange) =
