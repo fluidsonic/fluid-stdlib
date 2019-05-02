@@ -1,5 +1,7 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import kotlin.jvm.JvmName
+
 
 fun CharRange.flipped() =
 	endInclusive .. start

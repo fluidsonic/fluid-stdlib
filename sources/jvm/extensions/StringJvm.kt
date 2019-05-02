@@ -4,20 +4,6 @@ import java.text.BreakIterator
 import java.util.Locale
 
 
-fun String.truncatedTo(maximumLength: Int, truncationSuffix: String = ""): String {
-	require(maximumLength >= 0) { "maximumLength must be >= 0" }
-
-	if (length <= maximumLength) {
-		return this
-	}
-	if (maximumLength <= truncationSuffix.length) {
-		return truncationSuffix.take(truncationSuffix.length)
-	}
-
-	return take(maximumLength - truncationSuffix.length) + truncationSuffix
-}
-
-
 val String.unicodeLength: Int
 	get() {
 		val characterIterator = BreakIterator.getCharacterInstance(Locale.ROOT)

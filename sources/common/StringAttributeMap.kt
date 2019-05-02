@@ -1,7 +1,5 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import java.util.HashMap
-
 
 @Suppress("unused")
 interface StringAttribute<Value : Any>

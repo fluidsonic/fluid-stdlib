@@ -1,7 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import java.util.SortedMap
-import java.util.TreeMap
+import kotlin.jvm.JvmName
 import kotlin.math.max
 import kotlin.math.min
 
@@ -18,7 +17,7 @@ class AttributedString private constructor(
 	constructor(string: String, attributes: StringAttributeMap = emptyStringAttributes()) : this(
 		string = string,
 		attributesByRange = if (string.isNotEmpty() && !attributes.isEmpty()) {
-			TreeMap<Range, StringAttributeMap>().apply {
+			_TreeMap<Range, StringAttributeMap>().apply {
 				put(Range(0, string.length), attributes.toImmutable())
 			}
 		}
@@ -104,7 +103,7 @@ class AttributedString private constructor(
 			return
 		}
 
-		val ends = attributesByRange.keys.flatMapTo(sortedSetOf(string.length)) { listOf(it.start, it.endExclusive) }
+		val ends = attributesByRange.keys.flatMapTo(_sortedSetOf(string.length)) { listOf(it.start, it.endExclusive) }
 
 		var start = 0
 		for (end in ends) {
@@ -158,10 +157,15 @@ class AttributedString private constructor(
 
 	fun toDebugString() =
 		buildString {
-			appendln(string)
+			append(string)
+			append('\n')
+
 			if (attributesByRange != null) {
 				for ((range, rangeAttributes) in attributesByRange) {
-					appendln("$range: $rangeAttributes")
+					append(range.toString())
+					append(": ")
+					append(rangeAttributes.toString())
+					append('\n')
 				}
 			}
 		}
@@ -204,10 +208,10 @@ class AttributedString private constructor(
 
 	class Builder internal constructor(string: String = "", attributesByRange: Map<Range, StringAttributeMap>? = null) : CharSequence {
 
-		private val attributesByRange: SortedMap<MutableRange, MutableStringAttributeMap> = attributesByRange
+		private val attributesByRange: _TreeMap<MutableRange, MutableStringAttributeMap> = attributesByRange
 			?.entries
-			?.associateTo(TreeMap()) { it.key.toMutable() to it.value.toMutable() }
-			?: TreeMap()
+			?.associateTo(_TreeMap()) { it.key.toMutable() to it.value.toMutable() }
+			?: _TreeMap()
 
 		private val stringBuilder = StringBuilder(string)
 
@@ -509,7 +513,7 @@ class AttributedString private constructor(
 		fun toAttributedString() =
 			AttributedString(
 				string = string,
-				attributesByRange = attributesByRange.entries.associateTo(TreeMap()) { Pair(it.key.toImmutable(), it.value.toImmutable()) },
+				attributesByRange = attributesByRange.entries.associateTo(_TreeMap()) { Pair(it.key.toImmutable(), it.value.toImmutable()) },
 				damnJvm = Unit
 			)
 

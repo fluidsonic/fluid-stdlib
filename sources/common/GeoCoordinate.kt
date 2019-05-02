@@ -1,5 +1,10 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
+
 
 data class GeoCoordinate(
 	val latitude: Double,
@@ -19,10 +24,10 @@ data class GeoCoordinate(
 	 * @return the distance between this and the other geo coordinate in meters.
 	 */
 	fun distanceTo(coordinate: GeoCoordinate): Double {
-		val sinHalfLatitudeDistance = Math.sin(Math.toRadians(coordinate.latitude - latitude) * 0.5)
-		val sinHalfLongitudeDistance = Math.sin(Math.toRadians(coordinate.longitude - longitude) * 0.5)
-		val a = sinHalfLatitudeDistance * sinHalfLatitudeDistance + Math.cos(Math.toRadians(latitude)) * Math.cos(Math.toRadians(coordinate.latitude)) * sinHalfLongitudeDistance * sinHalfLongitudeDistance
-		val b = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+		val sinHalfLatitudeDistance = sin(degreesToRadians(coordinate.latitude - latitude) * 0.5)
+		val sinHalfLongitudeDistance = sin(degreesToRadians(coordinate.longitude - longitude) * 0.5)
+		val a = sinHalfLatitudeDistance * sinHalfLatitudeDistance + cos(degreesToRadians(latitude)) * cos(degreesToRadians(coordinate.latitude)) * sinHalfLongitudeDistance * sinHalfLongitudeDistance
+		val b = 2 * atan2(sqrt(a), sqrt(1 - a))
 
 		return earthRadius * b
 	}

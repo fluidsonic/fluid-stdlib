@@ -10,7 +10,7 @@ data class HalfOpenIntRange(
 ) : HalfOpenRange<Int>, Iterable<Int> {
 
 	override operator fun contains(value: Int) =
-		value in start .. (endExclusive - 1)
+		value in start until endExclusive
 
 
 	override fun isEmpty() = start >= endExclusive
@@ -21,7 +21,7 @@ data class HalfOpenIntRange(
 			return emptyRange.iterator()
 		}
 
-		return (start .. (endExclusive - 1)).iterator()
+		return (start until endExclusive).iterator()
 	}
 
 

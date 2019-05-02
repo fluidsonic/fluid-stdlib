@@ -1,53 +1,57 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import kotlin.jvm.JvmName
+import kotlin.math.max
+import kotlin.math.min
+
 
 @ExperimentalUnsignedTypes
-fun ULongRange.flipped() =
+fun UIntRange.flipped() =
 	endInclusive .. start
 
 
 @ExperimentalUnsignedTypes
-fun <R : Comparable<R>> ULongRange.mapBounds(transform: (ULong) -> R) =
+fun <R : Comparable<R>> UIntRange.mapBounds(transform: (UInt) -> R) =
 	transform(start) .. transform(endInclusive)
 
 
 @ExperimentalUnsignedTypes
 @JvmName("mapBoundsToDouble")
-fun ULongRange.mapBounds(transform: (ULong) -> Double) =
+fun UIntRange.mapBounds(transform: (UInt) -> Double) =
 	transform(start) .. transform(endInclusive)
 
 
 @ExperimentalUnsignedTypes
 @JvmName("mapBoundsToFloat")
-fun ULongRange.mapBounds(transform: (ULong) -> Float) =
+fun UIntRange.mapBounds(transform: (UInt) -> Float) =
 	transform(start) .. transform(endInclusive)
 
 
 @ExperimentalUnsignedTypes
-fun ULongRange.mapBounds(transform: (ULong) -> Int) =
+fun UIntRange.mapBounds(transform: (UInt) -> Int) =
 	transform(start) .. transform(endInclusive)
 
 
 @ExperimentalUnsignedTypes
-fun ULongRange.mapBounds(transform: (ULong) -> Long) =
+fun UIntRange.mapBounds(transform: (UInt) -> Long) =
 	transform(start) .. transform(endInclusive)
 
 
 @ExperimentalUnsignedTypes
-fun ULongRange.mapBounds(transform: (ULong) -> UInt) =
+fun UIntRange.mapBounds(transform: (UInt) -> UInt) =
 	transform(start) .. transform(endInclusive)
 
 
 @ExperimentalUnsignedTypes
-fun ULongRange.mapBounds(transform: (ULong) -> ULong) =
+fun UIntRange.mapBounds(transform: (UInt) -> ULong) =
 	transform(start) .. transform(endInclusive)
 
 
 @ExperimentalUnsignedTypes
-fun ULongRange.intersection(other: ULongRange) =
+fun UIntRange.intersection(other: UIntRange) =
 	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endInclusive, other.endInclusive) }
 
 
 @ExperimentalUnsignedTypes
-fun ULongRange.overlaps(other: ULongRange) =
+fun UIntRange.overlaps(other: UIntRange) =
 	contains(other.start) || other.contains(start)
