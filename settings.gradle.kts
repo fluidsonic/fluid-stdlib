@@ -7,8 +7,4 @@ pluginManagement {
 
 rootProject.name = "fluid-stdlib"
 
-include("jdk8")
-
-project(":jdk8").name = "fluid-stdlib-jdk8"
-
 enableFeaturePreview("GRADLE_METADATA")
