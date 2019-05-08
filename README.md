@@ -5,7 +5,7 @@ fluid-stdlib
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.fluidsonic/fluid-stdlib.svg)](https://search.maven.org/search?q=g:com.github.fluidsonic%20a:fluid-stdlib*)
 [![#fluid-libraries Slack Channel](https://img.shields.io/badge/slack-%23fluid--libraries-543951.svg)](https://kotlinlang.slack.com/messages/C7UDFSVT2/)
 
-Potentially useful Kotlin standard library additions
+Potentially useful Kotlin standard library additions for JDK7+ (including Android).
 
 
 
@@ -13,13 +13,12 @@ Installation
 ------------
 
 This library is [available in Maven Central](https://search.maven.org/search?q=g:com.github.fluidsonic%20a:fluid-stdlib*) as
-`fluid-stdlib` and `fluid-stdlib-jdk8` in the group `com.github.fluidsonic`.
+`fluid-stdlib` in the group `com.github.fluidsonic`.
 
 `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.github.fluidsonic:fluid-stdlib:0.9.3")       // JDK 7
-    implementation("com.github.fluidsonic:fluid-stdlib-jdk8:0.9.3")  // JDK 8 and above
+    implementation("com.github.fluidsonic:fluid-stdlib:0.9.4")
 }
 ```
 
