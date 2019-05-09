@@ -1,6 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import java.util.SortedSet
+import java.util.*
 
 
 actual typealias _SortedSet<E> = SortedSet<E>

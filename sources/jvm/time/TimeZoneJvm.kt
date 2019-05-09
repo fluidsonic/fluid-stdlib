@@ -16,7 +16,7 @@ actual class TimeZone(
 		actual val utc = TimeZone(ZoneOffset.UTC)
 
 
-		actual fun byId(id: String) =
+		actual fun withId(id: String) =
 			ZoneId.of(id)?.let(::TimeZone)
 	}
 }

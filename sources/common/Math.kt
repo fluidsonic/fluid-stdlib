@@ -1,6 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import kotlin.math.PI
+import kotlin.math.*
 
 
 internal fun degreesToRadians(degrees: Double) =

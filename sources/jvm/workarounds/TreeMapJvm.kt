@@ -1,6 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import java.util.TreeMap
+import java.util.*
 
 
 actual typealias _TreeMap<K, V> = TreeMap<K, V>

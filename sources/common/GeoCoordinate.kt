@@ -1,9 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.*
 
 
 data class GeoCoordinate(

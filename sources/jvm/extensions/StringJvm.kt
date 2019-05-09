@@ -1,6 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import java.text.BreakIterator
+import java.text.*
 import java.util.Locale
 
 

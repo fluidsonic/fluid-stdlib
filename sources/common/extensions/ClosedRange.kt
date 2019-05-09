@@ -1,6 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import kotlin.jvm.JvmName
+import kotlin.jvm.*
 
 
 fun <Bound : Comparable<Bound>> ClosedRange<Bound>.flipped() =

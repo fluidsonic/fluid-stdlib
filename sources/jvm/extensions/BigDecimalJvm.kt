@@ -1,6 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import java.math.BigDecimal
+import java.math.*
 
 
 val BigDecimal.isInteger

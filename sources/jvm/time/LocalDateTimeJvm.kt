@@ -19,7 +19,23 @@ actual class LocalDateTime internal constructor(
 		platform.compareTo(other.platform)
 
 
-	actual companion object
+	actual override fun equals(other: Any?) =
+		this === other || platform == (other as? LocalDateTime)?.platform
+
+
+	actual override fun hashCode() =
+		platform.hashCode()
+
+
+	actual override fun toString() =
+		platform.toString()
+
+
+	actual companion object {
+
+		actual fun parse(text: CharSequence) =
+			runCatching { PlatformLocalDateTime.parse(text).toCommon() }.getOrNull()
+	}
 }
 
 

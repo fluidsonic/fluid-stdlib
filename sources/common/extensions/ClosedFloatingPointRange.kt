@@ -1,8 +1,7 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import kotlin.jvm.JvmName
-import kotlin.math.max
-import kotlin.math.min
+import kotlin.jvm.*
+import kotlin.math.*
 
 
 @JvmName("flippedDouble")

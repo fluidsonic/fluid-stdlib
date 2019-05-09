@@ -10,8 +10,15 @@ expect class LocalDateTime : Comparable<LocalDateTime> {
 	val second: Int
 	val year: Int
 
+	override fun equals(other: Any?): Boolean
+	override fun hashCode(): Int
+	override fun toString(): String
 
-	companion object
+
+	companion object {
+
+		fun parse(text: CharSequence): LocalDateTime?
+	}
 }
 
 

@@ -7,8 +7,15 @@ expect class LocalDate : Comparable<LocalDate> {
 	val month: Month
 	val year: Int
 
+	override fun equals(other: Any?): Boolean
+	override fun hashCode(): Int
+	override fun toString(): String
 
-	companion object
+
+	companion object {
+
+		fun parse(text: CharSequence): LocalDate?
+	}
 }
 
 

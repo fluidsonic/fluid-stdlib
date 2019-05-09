@@ -1,6 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import java.security.SecureRandom
+import java.security.*
 
 
 object Base62 {

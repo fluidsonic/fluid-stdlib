@@ -11,6 +11,6 @@ expect class TimeZone {
 		val utc: TimeZone
 
 
-		fun byId(id: String): TimeZone?
+		fun withId(id: String): TimeZone?
 	}
 }

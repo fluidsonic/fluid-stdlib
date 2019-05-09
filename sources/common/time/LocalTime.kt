@@ -7,6 +7,10 @@ expect class LocalTime : Comparable<LocalTime> {
 	val minute: Int
 	val second: Int
 
+	override fun equals(other: Any?): Boolean
+	override fun hashCode(): Int
+	override fun toString(): String
+
 
 	companion object {
 
@@ -14,6 +18,8 @@ expect class LocalTime : Comparable<LocalTime> {
 		val midnight: LocalTime
 		val min: LocalTime
 		val noon: LocalTime
+
+		fun parse(text: CharSequence): LocalTime?
 	}
 }
 
