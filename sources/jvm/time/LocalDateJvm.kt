@@ -31,6 +31,10 @@ actual class LocalDate internal constructor(
 
 	actual companion object {
 
+		actual fun now(clock: Clock, timeZone: TimeZone) =
+			PlatformLocalDate.now(clock.platform.withZone(timeZone.platform)).toCommon()
+
+
 		actual fun parse(text: CharSequence) =
 			runCatching { PlatformLocalDate.parse(text).toCommon() }.getOrNull()
 	}

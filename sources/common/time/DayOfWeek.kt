@@ -25,3 +25,8 @@ operator fun DayOfWeek.minus(days: Int) =
 
 operator fun DayOfWeek.plus(days: Int) =
 	DayOfWeek.values()[(ordinal + (days % 7) + 7) % 7]
+
+
+@Suppress("NAMED_ARGUMENTS_NOT_ALLOWED")
+fun DayOfWeek.Companion.now(clock: Clock = Clock.system, timeZone: TimeZone = clock.timeZone) =
+	LocalDate.now(clock = clock, timeZone = timeZone).dayOfWeek

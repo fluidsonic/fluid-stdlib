@@ -12,6 +12,7 @@ expect class Timestamp : Comparable<Timestamp> {
 
 	companion object {
 
+		fun now(clock: Clock = Clock.system, timeZone: TimeZone = clock.timeZone): Timestamp
 		fun parse(text: CharSequence): Timestamp?
 	}
 }

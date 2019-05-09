@@ -29,6 +29,10 @@ actual class Timestamp(
 
 	actual companion object {
 
+		actual fun now(clock: Clock, timeZone: TimeZone) =
+			Instant.now(clock.platform.withZone(timeZone.platform)).toCommon()
+
+
 		actual fun parse(text: CharSequence) =
 			runCatching { Instant.parse(text).toCommon() }.getOrNull()
 	}

@@ -19,6 +19,7 @@ expect class LocalTime : Comparable<LocalTime> {
 		val min: LocalTime
 		val noon: LocalTime
 
+		fun now(clock: Clock = Clock.system, timeZone: TimeZone = clock.timeZone): LocalTime
 		fun parse(text: CharSequence): LocalTime?
 	}
 }

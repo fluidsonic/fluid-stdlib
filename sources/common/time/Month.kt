@@ -25,6 +25,11 @@ enum class Month {
 }
 
 
+@Suppress("NAMED_ARGUMENTS_NOT_ALLOWED")
+fun Month.Companion.now(clock: Clock = Clock.system, timeZone: TimeZone = clock.timeZone) =
+	LocalDate.now(clock = clock, timeZone = timeZone).month
+
+
 fun Month(value: Int) =
 	Month.of(value) ?: error("invalid month value: $value")
 

@@ -17,10 +17,13 @@ expect class LocalDateTime : Comparable<LocalDateTime> {
 
 	companion object {
 
+		fun now(clock: Clock = Clock.system, timeZone: TimeZone = clock.timeZone): LocalDateTime
 		fun parse(text: CharSequence): LocalDateTime?
 	}
 }
 
+
+expect val LocalDateTime.dayOfWeek: DayOfWeek
 
 expect fun LocalDateTime(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int): LocalDateTime
 

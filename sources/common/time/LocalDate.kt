@@ -14,6 +14,7 @@ expect class LocalDate : Comparable<LocalDate> {
 
 	companion object {
 
+		fun now(clock: Clock = Clock.system, timeZone: TimeZone = clock.timeZone): LocalDate
 		fun parse(text: CharSequence): LocalDate?
 	}
 }

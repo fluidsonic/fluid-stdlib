@@ -36,6 +36,10 @@ actual class LocalTime internal constructor(
 		actual val noon = PlatformLocalTime.NOON.toCommon()
 
 
+		actual fun now(clock: Clock, timeZone: TimeZone) =
+			PlatformLocalTime.now(clock.platform.withZone(timeZone.platform)).toCommon()
+
+
 		actual fun parse(text: CharSequence) =
 			runCatching { PlatformLocalTime.parse(text).toCommon() }.getOrNull()
 	}
