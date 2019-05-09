@@ -1,12 +1,12 @@
 import com.github.fluidsonic.fluid.library.*
 
 plugins {
-	id("com.github.fluidsonic.fluid-library") version "0.9.7"
+	id("com.github.fluidsonic.fluid-library") version "0.9.10"
 }
 
 fluidLibrary {
 	name = "fluid-stdlib"
-	version = "0.9.4"
+	version = "0.9.5"
 }
 
 fluidLibraryVariant {
