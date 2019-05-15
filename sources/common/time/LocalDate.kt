@@ -15,6 +15,7 @@ expect class LocalDate : Comparable<LocalDate> {
 	companion object {
 
 		fun now(clock: Clock = Clock.system, timeZone: TimeZone = clock.timeZone): LocalDate
+		fun ofEpochDay(epochDay: Long): LocalDate
 		fun parse(text: CharSequence): LocalDate?
 	}
 }
@@ -37,5 +38,9 @@ fun LocalDate.atStartOfDay() =
 	atTime(LocalTime.midnight)
 
 
+fun LocalDate.atTime(hour: Int, minute: Int, second: Int = 0) =
+	LocalDateTime(year = year, month = month, day = day, hour = hour, minute = minute, second = second)
+
+
 fun LocalDate.atTime(time: LocalTime) =
-	LocalDateTime(year = year, month = month, day = day, hour = time.hour, minute = time.minute, second = time.second)
+	atTime(hour = time.hour, minute = time.minute, second = time.second)

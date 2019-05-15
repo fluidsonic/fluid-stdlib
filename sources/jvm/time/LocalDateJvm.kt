@@ -35,6 +35,10 @@ actual class LocalDate internal constructor(
 			PlatformLocalDate.now(clock.platform.withZone(timeZone.platform)).toCommon()
 
 
+		actual fun ofEpochDay(epochDay: Long) =
+			PlatformLocalDate.ofEpochDay(epochDay).toCommon()
+
+
 		actual fun parse(text: CharSequence) =
 			runCatching { PlatformLocalDate.parse(text).toCommon() }.getOrNull()
 	}

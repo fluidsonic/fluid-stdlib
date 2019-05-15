@@ -55,5 +55,13 @@ actual fun Timestamp.toLocalTime(timeZone: TimeZone) =
 	platform.atZone(timeZone.platform).toLocalTime().toCommon()
 
 
+actual operator fun Timestamp.minus(duration: Duration) =
+	platform.minus(duration.platform).toCommon()
+
+
+actual operator fun Timestamp.plus(duration: Duration) =
+	platform.plus(duration.platform).toCommon()
+
+
 fun Instant.toCommon() =
 	Timestamp(this)
