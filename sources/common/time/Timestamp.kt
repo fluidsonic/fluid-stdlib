@@ -26,3 +26,11 @@ expect fun Timestamp.toLocalTime(timeZone: TimeZone): LocalTime
 
 expect operator fun Timestamp.minus(duration: Duration): Timestamp
 expect operator fun Timestamp.plus(duration: Duration): Timestamp
+
+
+fun Timestamp.durationSince(other: Timestamp) =
+	Duration.seconds(epochSecond - other.epochSecond) // FIXME ms
+
+
+fun Timestamp.durationUntil(other: Timestamp) =
+	other.durationSince(this)

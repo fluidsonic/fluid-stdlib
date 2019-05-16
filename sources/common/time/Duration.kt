@@ -19,3 +19,19 @@ expect class Duration : Comparable<Duration> {
 		fun seconds(seconds: Long): Duration
 	}
 }
+
+
+val Duration.absolute
+	get() = if (seconds < 0) Duration.seconds(-seconds) else this
+
+
+val Duration.days
+	get() = seconds / 86400
+
+
+val Duration.hours
+	get() = seconds / 3600
+
+
+val Duration.minutes
+	get() = seconds / 60
