@@ -1,14 +1,14 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import org.threeten.bp.ZoneId as PlatformTimeZone
-import java.util.Locale as JavaLocale
+import platform.Foundation.*
+import platform.Foundation.NSTimeZone as PlatformTimeZone
 
 
 actual class TimeZone internal constructor(
 	val platform: PlatformTimeZone
 ) {
 
-	actual val id: String get() = platform.id
+	actual val id: String get() = platform.name
 
 
 	actual override fun equals(other: Any?) =
@@ -30,7 +30,7 @@ actual class TimeZone internal constructor(
 
 
 		actual fun withId(id: String) =
-			runCatching { PlatformTimeZone.of(id).toCommon() }.getOrNull()
+			PlatformTimeZone.timeZoneWithName(id)?.toCommon()
 	}
 }
 

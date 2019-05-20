@@ -15,7 +15,14 @@ fluidLibraryVariant {
 }
 
 kotlin {
+	iosX64()
+
 	sourceSets {
+		getByName("iosX64Main") {
+			kotlin.setSrcDirs(listOf("sources/ios"))
+			resources.setSrcDirs(emptyList())
+		}
+
 		jvmMain {
 			dependencies {
 				implementation("org.threeten:threetenbp:1.4.0")

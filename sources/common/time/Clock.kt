@@ -9,11 +9,16 @@ expect class Clock {
 	override fun hashCode(): Int
 	override fun toString(): String
 
-	fun withTimeZone(timeZone: TimeZone): Clock
-
 
 	companion object {
 
 		val system: Clock
 	}
 }
+
+
+expect fun Clock.localDate(): LocalDate
+expect fun Clock.localDateTime(): LocalDateTime
+expect fun Clock.localTime(): LocalTime
+expect fun Clock.timestamp(): Timestamp
+expect fun Clock.withTimeZone(timeZone: TimeZone): Clock
