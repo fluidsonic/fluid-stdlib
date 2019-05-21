@@ -1,7 +1,7 @@
 import com.github.fluidsonic.fluid.library.*
 
 plugins {
-	id("com.github.fluidsonic.fluid-library") version "0.9.10"
+	id("com.github.fluidsonic.fluid-library") version "0.9.11"
 }
 
 fluidLibrary {
@@ -21,6 +21,12 @@ kotlin {
 		getByName("iosX64Main") {
 			kotlin.setSrcDirs(listOf("sources/ios"))
 			resources.setSrcDirs(emptyList())
+		}
+
+		commonMain {
+			dependencies {
+				api(fluid("time", "0.9.0"))
+			}
 		}
 
 		jvmMain {

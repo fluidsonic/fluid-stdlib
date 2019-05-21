@@ -1,5 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import com.github.fluidsonic.fluid.time.*
 import org.threeten.bp.format.*
 import org.threeten.bp.DayOfWeek as PlatformDayOfWeek
 
