@@ -7,7 +7,7 @@ plugins {
 
 fluidLibrary {
 	name = "fluid-stdlib"
-	version = "0.9.11"
+	version = "0.9.12"
 }
 
 fluidLibraryVariant {
@@ -40,7 +40,7 @@ kotlin {
 
 		commonMain {
 			dependencies {
-				api(fluid("time", "0.9.1"))
+				api(fluid("time", "0.9.2"))
 
 				implementation(kotlinx("serialization-runtime", "0.11.0"))
 			}
