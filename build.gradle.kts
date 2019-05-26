@@ -40,7 +40,7 @@ kotlin {
 
 		commonMain {
 			dependencies {
-				api(fluid("time", "0.9.2"))
+				api(fluid("time", "0.9.3"))
 
 				implementation(kotlinx("serialization-runtime", "0.11.0"))
 			}
