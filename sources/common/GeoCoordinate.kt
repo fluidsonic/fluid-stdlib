@@ -10,10 +10,11 @@ data class GeoCoordinate(
 	val longitude: Double
 ) {
 
-	init {
-		require(latitude.isFinite()) { "latitude must be a finite value" }
-		require(longitude.isFinite()) { "longitude must be a finite value" }
-	}
+//	TODO reactivate once https://github.com/JetBrains/kotlin-native/issues/3019 is fixed
+//	init {
+//		require(latitude.isFinite()) { "latitude must be a finite value" }
+//		require(longitude.isFinite()) { "longitude must be a finite value" }
+//	}
 
 	/**
 	 * Computes the distance between two geo coordinate in meters.
