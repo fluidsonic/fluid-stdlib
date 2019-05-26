@@ -32,18 +32,6 @@ data class GeoCoordinate(
 	}
 
 
-	val isInNorthernHemisphere
-		get() = latitude > 0.0
-
-
-	val isInSouthernHemisphere
-		get() = latitude < 0.0
-
-
-	val isOnEquator
-		get() = latitude == 0.0
-
-
 	override fun toString() =
 		"$latitude,$longitude"
 
