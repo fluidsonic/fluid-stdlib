@@ -1,7 +1,11 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import kotlinx.serialization.*
+import kotlinx.serialization.internal.*
 
-class Country private constructor(
+
+@Serializable(with = CountrySerializer::class)
+/*inline*/ class Country private constructor(
 	val code: String
 ) {
 
@@ -37,3 +41,21 @@ internal expect val allCountryCodes: Set<String>
 
 
 expect fun Country.name(locale: Locale): String
+
+
+@Serializer(forClass = Country::class)
+internal object CountrySerializer : KSerializer<Country> {
+
+	override val descriptor = StringDescriptor.withName("com.github.fluidsonic.fluid.stdlib.Country")
+
+
+	override fun deserialize(decoder: Decoder) =
+		decoder.decodeString().let { code ->
+			Country.byCode(code) ?: throw SerializationException("Unknown country code: $code")
+		}
+
+
+	override fun serialize(encoder: Encoder, obj: Country) {
+		encoder.encodeString(obj.code)
+	}
+}

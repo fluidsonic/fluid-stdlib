@@ -1,8 +1,10 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import kotlinx.serialization.*
 import kotlin.math.*
 
 
+@Serializable
 data class GeoCoordinate(
 	val latitude: Double,
 	val longitude: Double

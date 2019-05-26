@@ -1,7 +1,7 @@
 import com.github.fluidsonic.fluid.library.*
 
 plugins {
-	id("com.github.fluidsonic.fluid-library") version "0.9.11"
+	id("com.github.fluidsonic.fluid-library") version "0.9.13"
 }
 
 fluidLibrary {
@@ -20,12 +20,14 @@ kotlin {
 	sourceSets {
 		getByName("iosX64Main") {
 			kotlin.setSrcDirs(listOf("sources/ios"))
-			resources.setSrcDirs(emptyList())
+			resources.setSrcDirs(emptyList<Any>())
 		}
 
 		commonMain {
 			dependencies {
-				api(fluid("time", "0.9.0"))
+				api(fluid("time", "0.9.1"))
+
+				implementation(kotlinx("serialization-runtime", "0.11.0"))
 			}
 		}
 
