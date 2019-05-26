@@ -1,5 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import com.github.fluidsonic.fluid.stdlib.Currency_Static.allCurrencyCodes
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.*
 
@@ -37,10 +38,13 @@ import kotlinx.serialization.internal.*
 }
 
 
-internal expect val allCurrencyCodes: Set<String>
-
-
 expect fun Currency.name(locale: Locale): String
+
+
+internal expect object Currency_Static {
+
+	val allCurrencyCodes: Set<String>
+}
 
 
 @Serializer(forClass = Currency::class)

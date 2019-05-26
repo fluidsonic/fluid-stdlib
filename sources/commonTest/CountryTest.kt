@@ -9,6 +9,7 @@ object CountryTest {
 	@Test
 	fun testSerializer() = assertJsonSerialization(
 		value = Country.byCode("US")!!,
-		json = """ "US" """
+		json = """ "US" """,
+		serializer = Country.serializer()
 	)
 }

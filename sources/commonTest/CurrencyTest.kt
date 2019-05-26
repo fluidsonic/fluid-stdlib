@@ -9,6 +9,7 @@ object CurrencyTest {
 	@Test
 	fun testSerializer() = assertJsonSerialization(
 		value = Currency.byCode("EUR")!!,
-		json = """ "EUR" """
+		json = """ "EUR" """,
+		serializer = Currency.serializer()
 	)
 }

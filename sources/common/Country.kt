@@ -1,5 +1,6 @@
 package com.github.fluidsonic.fluid.stdlib
 
+import com.github.fluidsonic.fluid.stdlib.Country_Static.allCountryCodes
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.*
 
@@ -37,10 +38,13 @@ import kotlinx.serialization.internal.*
 }
 
 
-internal expect val allCountryCodes: Set<String>
-
-
 expect fun Country.name(locale: Locale): String
+
+
+internal expect object Country_Static {
+
+	val allCountryCodes: Set<String>
+}
 
 
 @Serializer(forClass = Country::class)
