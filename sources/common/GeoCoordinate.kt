@@ -17,7 +17,7 @@ data class GeoCoordinate(
 //	}
 
 	/**
-	 * Computes the distance between two geo coordinate in meters.
+	 * Computes the distance between two geo coordinates in meters.
 
 	 * @param coordinate the other coordinate
 	 * *
