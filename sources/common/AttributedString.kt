@@ -34,7 +34,7 @@ class AttributedString private constructor(
 
 		val attributesByRange = attributesByRange ?: return null
 		for ((range, rangeAttributes) in attributesByRange) {
-			if (range.endExclusive < at) continue
+			if (range.endExclusive <= at) continue
 			if (range.start > at) break
 
 			return rangeAttributes[attribute]

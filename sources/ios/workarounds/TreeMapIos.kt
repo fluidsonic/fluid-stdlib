@@ -54,7 +54,7 @@ actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 		container.remove(key)
 
 
-	override val size: Int
+	override val size
 		get() = container.size
 
 
@@ -86,13 +86,17 @@ actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 
 
 		override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> {
-			val sortedEntries = (entries as Collection<MutableMap.MutableEntry<Comparable<Any>, V>>).sortedBy { it.key }
+			val sortedEntries = (container.entries as Collection<MutableMap.MutableEntry<Comparable<Any>, V>>).sortedBy { it.key }
 				as List<MutableMap.MutableEntry<K, V>>
 			val iterator = sortedEntries.iterator()
 
-			return object : MutableIterator<MutableMap.MutableEntry<K, V>>, Iterator<MutableMap.MutableEntry<K, V>> by iterator {
+			return object : MutableIterator<MutableMap.MutableEntry<K, V>> {
 
-				var current: MutableMap.MutableEntry<K, V>? = null
+				private var current: MutableMap.MutableEntry<K, V>? = null
+
+
+				override fun hasNext() =
+					iterator.hasNext()
 
 
 				override fun next(): MutableMap.MutableEntry<K, V> {
@@ -105,6 +109,7 @@ actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 				override fun remove() {
 					val current = current ?: return
 					this.current = null
+
 					container.remove(current.key)
 				}
 			}
@@ -123,8 +128,8 @@ actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 			container.entries.retainAll(elements)
 
 
-		override val size =
-			container.entries.size
+		override val size
+			get() = container.entries.size
 	}
 
 
@@ -156,24 +161,34 @@ actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 
 
 		override fun iterator(): MutableIterator<K> {
-			val sortedKeys = (keys as MutableSet<Comparable<Any>>).sorted() as List<K>
+			val sortedKeys = (container.keys as MutableSet<Comparable<Any>>).sorted() as List<K>
 			val iterator = sortedKeys.iterator()
 
-			return object : MutableIterator<K>, Iterator<K> by iterator {
+			return object : MutableIterator<K> {
 
-				var current: K? = null
+				private var current: K? = null
+				private var hasCurrent = false
+
+
+				override fun hasNext() =
+					iterator.hasNext()
 
 
 				override fun next(): K {
 					val next = iterator.next()
 					current = next
+					hasCurrent = true
 					return next
 				}
 
 
 				override fun remove() {
+					if (!hasCurrent) return
+
 					val current = current ?: return
 					this.current = null
+					this.hasCurrent = false
+
 					container.remove(current)
 				}
 			}
@@ -209,7 +224,7 @@ actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 		}
 
 
-		override val size =
-			container.size
+		override val size
+			get() = container.size
 	}
 }
