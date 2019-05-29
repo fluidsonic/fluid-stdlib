@@ -1,5 +1,4 @@
 import com.github.fluidsonic.fluid.library.*
-import org.jetbrains.kotlin.gradle.plugin.mpp.*
 
 plugins {
 	id("com.github.fluidsonic.fluid-library") version "0.9.14"
@@ -7,7 +6,7 @@ plugins {
 
 fluidLibrary {
 	name = "fluid-stdlib"
-	version = "0.9.15"
+	version = "0.9.16"
 }
 
 fluidLibraryVariant {
