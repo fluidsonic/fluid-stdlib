@@ -5,7 +5,7 @@ import platform.Foundation.NSLocale as PlatformLocale
 
 
 actual fun Currency.name(locale: Locale) =
-	locale.platform.localizedStringForCurrencyCode(code) ?: code
+	locale.toPlatform().localizedStringForCurrencyCode(code) ?: code
 
 
 internal actual object Currency_Static {

@@ -6,8 +6,12 @@ import java.util.Locale as PlatformLocale
 
 
 actual class Locale(
-	val platform: PlatformLocale
+	private val platform: PlatformLocale
 ) {
+
+	fun toPlatform() =
+		platform
+
 
 	actual companion object {
 
