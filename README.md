@@ -18,7 +18,7 @@ This library is [available in Maven Central](https://search.maven.org/search?q=g
 `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.github.fluidsonic:fluid-stdlib:0.9.20")
+    implementation("com.github.fluidsonic:fluid-stdlib:0.9.21")
 }
 ```
 
