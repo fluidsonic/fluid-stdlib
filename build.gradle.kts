@@ -20,7 +20,7 @@ kotlin {
 	sourceSets {
 		commonMain {
 			dependencies {
-				api(fluid("time", "0.9.9"))
+				api(fluid("time", "0.9.10"))
 
 				implementation(kotlinx("serialization-runtime", "0.11.0"))
 			}
