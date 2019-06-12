@@ -10,9 +10,6 @@ class AttributedString private constructor(
 	@Suppress("UNUSED_PARAMETER") damnJvm: Unit
 ) : CharSequence {
 
-	private val hashCode by lazy { string.hashCode() xor (attributesByRange?.hashCode() ?: 0) } // TODO must normalize attributes
-
-
 	constructor(string: String, attributes: StringAttributeMap = emptyStringAttributes()) : this(
 		string = string,
 		attributesByRange = if (string.isNotEmpty() && !attributes.isEmpty()) {
@@ -25,6 +22,11 @@ class AttributedString private constructor(
 		},
 		damnJvm = Unit
 	)
+
+
+	init {
+		freeze()
+	}
 
 
 	@JvmName("_attribute")
@@ -139,7 +141,7 @@ class AttributedString private constructor(
 
 
 	override fun hashCode() =
-		hashCode
+		string.hashCode() xor (attributesByRange?.hashCode() ?: 0) // TODO must normalize attributes
 
 
 	override val length
@@ -184,6 +186,8 @@ class AttributedString private constructor(
 
 		init {
 			require(endExclusive >= start)
+
+			freeze()
 		}
 
 

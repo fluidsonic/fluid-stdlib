@@ -5,6 +5,11 @@ data class Optional<out Value : Any>(
 	val value: Value? = null
 ) {
 
+	init {
+		freeze()
+	}
+
+
 	inline fun <MappedValue : Any> mapValue(mapping: (Value) -> MappedValue?) =
 		Optional(value?.let(mapping))
 

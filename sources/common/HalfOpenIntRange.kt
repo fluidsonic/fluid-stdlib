@@ -8,6 +8,11 @@ data class HalfOpenIntRange(
 	override val endExclusive: Int
 ) : HalfOpenRange<Int>, Iterable<Int> {
 
+	init {
+		freeze()
+	}
+
+
 	override operator fun contains(value: Int) =
 		value in start until endExclusive
 

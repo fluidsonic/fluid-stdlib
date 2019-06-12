@@ -7,6 +7,11 @@ actual class Locale(
 	private val platform: PlatformLocale
 ) {
 
+	init {
+		freeze()
+	}
+
+
 	fun toPlatform() =
 		platform
 

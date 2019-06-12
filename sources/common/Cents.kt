@@ -4,7 +4,16 @@ import kotlinx.serialization.*
 
 
 @Serializable
-data /*inline*/ class Cents(val value: Long)
+data /*inline*/ class Cents(val value: Long) {
+
+	init {
+		freeze()
+	}
+
+
+	override fun toString() =
+		value.toString()
+}
 
 
 @Serializer(forClass = Cents::class)

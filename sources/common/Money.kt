@@ -7,4 +7,9 @@ import kotlinx.serialization.*
 data class Money(
 	val amount: Cents,
 	val currency: Currency
-)
+) {
+
+	init {
+		freeze()
+	}
+}

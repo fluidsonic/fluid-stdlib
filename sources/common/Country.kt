@@ -10,6 +10,11 @@ import kotlinx.serialization.internal.*
 	val code: String
 ) {
 
+	init {
+		freeze()
+	}
+
+
 	override fun equals(other: Any?) =
 		other === this || (other is Country && code == other.code)
 
@@ -29,6 +34,7 @@ import kotlinx.serialization.internal.*
 	companion object {
 
 		val all: Collection<Country> = allCountryCodes.map { Country(it.toUpperCase()) }
+
 		private val allByCode = all.associateBy(Country::code)
 
 
