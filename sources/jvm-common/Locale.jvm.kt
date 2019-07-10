@@ -1,7 +1,5 @@
 package com.github.fluidsonic.fluid.stdlib
 
-import org.threeten.bp.chrono.*
-import org.threeten.bp.format.*
 import java.util.Locale as PlatformLocale
 
 
@@ -25,4 +23,9 @@ fun PlatformLocale.toCommon() =
 
 
 val PlatformLocale.usesTwelveHourClock
-	get() = DateTimeFormatterBuilder.getLocalizedDateTimePattern(null, FormatStyle.MEDIUM, IsoChronology.INSTANCE, this).contains('a')
+	get() = PlatformDateTimeFormatterBuilder.getLocalizedDateTimePattern(
+		null,
+		PlatformFormatStyle.MEDIUM,
+		PlatformIsoChronology.INSTANCE,
+		this
+	).contains('a')
