@@ -6,51 +6,51 @@ import kotlin.math.*
 
 @ExperimentalUnsignedTypes
 fun UIntRange.flipped() =
-	endInclusive .. start
+	last .. first
 
 
 @ExperimentalUnsignedTypes
 fun <R : Comparable<R>> UIntRange.mapBounds(transform: (UInt) -> R) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 @JvmName("mapBoundsToDouble")
 fun UIntRange.mapBounds(transform: (UInt) -> Double) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 @JvmName("mapBoundsToFloat")
 fun UIntRange.mapBounds(transform: (UInt) -> Float) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun UIntRange.mapBounds(transform: (UInt) -> Int) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun UIntRange.mapBounds(transform: (UInt) -> Long) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun UIntRange.mapBounds(transform: (UInt) -> UInt) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun UIntRange.mapBounds(transform: (UInt) -> ULong) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun UIntRange.intersection(other: UIntRange) =
-	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endInclusive, other.endInclusive) }
+	overlaps(other).thenTake { max(first, other.first) rangeToExcluding min(last, other.last) }
 
 
 @ExperimentalUnsignedTypes
 fun UIntRange.overlaps(other: UIntRange) =
-	contains(other.start) || other.contains(start)
+	contains(other.first) || other.contains(first)

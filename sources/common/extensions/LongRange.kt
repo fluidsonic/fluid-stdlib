@@ -5,44 +5,44 @@ import kotlin.math.*
 
 
 fun LongRange.flipped() =
-	endInclusive .. start
+	last .. first
 
 
 fun <R : Comparable<R>> LongRange.mapBounds(transform: (Long) -> R) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToDouble")
 fun LongRange.mapBounds(transform: (Long) -> Double) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToFloat")
 fun LongRange.mapBounds(transform: (Long) -> Float) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 fun LongRange.mapBounds(transform: (Long) -> Int) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 fun LongRange.mapBounds(transform: (Long) -> Long) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun LongRange.mapBounds(transform: (Long) -> UInt) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun LongRange.mapBounds(transform: (Long) -> ULong) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 fun LongRange.intersection(other: LongRange) =
-	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endInclusive, other.endInclusive) }
+	overlaps(other).thenTake { max(first, other.first) rangeToExcluding min(last, other.last) }
 
 
 fun LongRange.overlaps(other: LongRange) =
-	contains(other.start) || other.contains(start)
+	contains(other.first) || other.contains(first)

@@ -4,44 +4,44 @@ import kotlin.jvm.*
 
 
 fun CharRange.flipped() =
-	endInclusive .. start
+	last .. first
 
 
 fun <R : Comparable<R>> CharRange.mapBounds(transform: (Char) -> R) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToDouble")
 fun CharRange.mapBounds(transform: (Char) -> Double) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToFloat")
 fun CharRange.mapBounds(transform: (Char) -> Float) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 fun CharRange.mapBounds(transform: (Char) -> Int) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 fun CharRange.mapBounds(transform: (Char) -> Long) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun CharRange.mapBounds(transform: (Char) -> UInt) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 @ExperimentalUnsignedTypes
 fun CharRange.mapBounds(transform: (Char) -> ULong) =
-	transform(start) .. transform(endInclusive)
+	transform(first) .. transform(last)
 
 
 fun CharRange.intersection(other: CharRange) =
-	overlaps(other).thenTake { maxOf(start, other.start) rangeToExcluding minOf(endInclusive, other.endInclusive) }
+	overlaps(other).thenTake { maxOf(first, other.first) rangeToExcluding minOf(last, other.last) }
 
 
 fun CharRange.overlaps(other: CharRange) =
-	contains(other.start) || other.contains(start)
+	contains(other.first) || other.contains(first)

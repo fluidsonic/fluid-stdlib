@@ -13,7 +13,8 @@ interface HalfOpenRange<Bound : Comparable<Bound>> {
 		value >= start && value < endExclusive
 
 
-	fun isEmpty() = start >= endExclusive
+	fun isEmpty() =
+		start >= endExclusive
 
 
 	companion object
@@ -36,44 +37,60 @@ fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.overlaps(other: HalfOpenRan
 	contains(other.start) || other.contains(start)
 
 
-fun <Bound : Comparable<Bound>, R : Comparable<R>> HalfOpenRange<Bound>.mapBounds(transform: (Bound) -> R) =
+inline fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.mapBounds(transform: (Bound) -> Int) =
+	transform(start) rangeToExcluding transform(endExclusive)
+
+
+inline fun <Bound : Comparable<Bound>, R : Comparable<R>> HalfOpenRange<Bound>.mapBounds(transform: (Bound) -> R) =
 	transform(start) rangeToExcluding transform(endExclusive)
 
 
 fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.subtracting(rangeToSubtract: HalfOpenRange<Bound>): List<HalfOpenRange<Bound>> {
-	if (rangeToSubtract.start >= endExclusive || rangeToSubtract.endExclusive <= start) {
+	if (rangeToSubtract.start >= endExclusive || rangeToSubtract.endExclusive <= start)
 		return listOf(this)
-	}
 
 	val result = mutableListOf<HalfOpenRange<Bound>>()
-	if (rangeToSubtract.start > start) {
+	if (rangeToSubtract.start > start)
 		result.add(start rangeToExcluding rangeToSubtract.start)
-	}
-	if (rangeToSubtract.endExclusive < endExclusive) {
+	if (rangeToSubtract.endExclusive < endExclusive)
 		result.add(rangeToSubtract.endExclusive rangeToExcluding endExclusive)
-	}
 
 	return result
 }
 
 
 fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.toSequence(nextFunction: (Bound) -> Bound?) =
-	generateSequence(start) { start ->
-		nextFunction(start)?.takeIf { value -> contains(value) }
+	when {
+		isEmpty() -> emptySequence()
+		else -> generateSequence(start) { start ->
+			nextFunction(start)?.takeIf { value -> contains(value) }
+		}
 	}
 
 
-private data class HalfOpenComparableRange<Bound : Comparable<Bound>>(
+private class HalfOpenComparableRange<Bound : Comparable<Bound>>(
 	override val start: Bound,
 	override val endExclusive: Bound
 ) : HalfOpenRange<Bound> {
 
-	init {
-		require(start <= endExclusive)
-	}
+	operator fun component1() =
+		start
 
 
-	override fun toString() = "$start ..< $endExclusive"
+	operator fun component2() =
+		endExclusive
+
+
+	override fun equals(other: Any?) =
+		this === other || (other is HalfOpenRange<*> && start == other.start && endExclusive == other.endExclusive)
+
+
+	override fun hashCode() =
+		hash { start x endExclusive }
+
+
+	override fun toString() =
+		"$start ..< $endExclusive"
 }
 
 

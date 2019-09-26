@@ -48,6 +48,9 @@ fun <Bound : Comparable<Bound>> ClosedRange<Bound>.overlaps(other: ClosedRange<B
 
 
 fun <Bound : Comparable<Bound>> ClosedRange<Bound>.toSequence(next: (Bound) -> Bound?) =
-	generateSequence(start) { start ->
-		next(start)?.takeIf { value -> contains(value) }
+	when {
+		isEmpty() -> emptySequence()
+		else -> generateSequence(start) { start ->
+			next(start)?.takeIf { value -> contains(value) }
+		}
 	}

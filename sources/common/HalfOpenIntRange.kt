@@ -3,30 +3,69 @@ package com.github.fluidsonic.fluid.stdlib
 import kotlin.math.*
 
 
-data class HalfOpenIntRange(
-	override val start: Int,
-	override val endExclusive: Int
+class HalfOpenIntRange(
+	start: Int,
+	endExclusive: Int
 ) : HalfOpenRange<Int>, Iterable<Int> {
+
+	val startValue = start
+	val endValueExclusive = endExclusive
+
 
 	init {
 		freeze()
 	}
 
 
+	@Deprecated(
+		message = "use .endValueInclusive to avoid boxing",
+		replaceWith = ReplaceWith("endValueExclusive"),
+		level = DeprecationLevel.WARNING
+	)
+	override val endExclusive
+		get() = endValueExclusive
+
+
+	operator fun component1() =
+		startValue
+
+
+	operator fun component2() =
+		endValueExclusive
+
+
 	override operator fun contains(value: Int) =
-		value in start until endExclusive
+		value in startValue until endValueExclusive
 
 
-	override fun isEmpty() = start >= endExclusive
+	override fun equals(other: Any?) =
+		this === other ||
+			(other is HalfOpenIntRange && startValue == other.startValue && endValueExclusive == other.endValueExclusive) ||
+			(other is HalfOpenRange<*> && startValue == other.start && endValueExclusive == other.endExclusive)
 
 
-	override operator fun iterator(): IntIterator {
-		if (start == endExclusive) {
-			return emptyRange.iterator()
+	override fun hashCode() =
+		hash { startValue x endValueExclusive }
+
+
+	override fun isEmpty() =
+		startValue >= endValueExclusive
+
+
+	override operator fun iterator() =
+		when (startValue) {
+			endValueExclusive -> emptyRange.iterator()
+			else -> (startValue until endValueExclusive).iterator()
 		}
 
-		return (start until endExclusive).iterator()
-	}
+
+	@Deprecated(
+		message = "use .startValue to avoid boxing",
+		replaceWith = ReplaceWith("startValue"),
+		level = DeprecationLevel.WARNING
+	)
+	override val start
+		get() = startValue
 
 
 	companion object {
@@ -38,45 +77,51 @@ data class HalfOpenIntRange(
 
 
 fun HalfOpenIntRange.contains(other: HalfOpenIntRange) =
-	contains(other.start) && other.endExclusive <= endExclusive
+	contains(other.startValue) && other.endValueExclusive <= endValueExclusive
 
 
 fun HalfOpenIntRange.flipped() =
-	endExclusive rangeToExcluding start
+	endValueExclusive rangeToExcluding startValue
 
 
 fun HalfOpenIntRange.intersection(other: HalfOpenIntRange) =
-	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endExclusive, other.endExclusive) }
+	overlaps(other).thenTake { max(startValue, other.startValue) rangeToExcluding min(endValueExclusive, other.endValueExclusive) }
 
 
 fun HalfOpenIntRange.overlaps(other: HalfOpenIntRange) =
-	contains(other.start) || other.contains(start)
+	contains(other.startValue) || other.contains(startValue)
 
 
-fun <R : Comparable<R>> HalfOpenIntRange.mapBounds(transform: (Int) -> R) =
-	transform(start) rangeToExcluding transform(endExclusive)
+inline fun HalfOpenIntRange.mapBounds(transform: (Int) -> Int) =
+	transform(startValue) rangeToExcluding transform(endValueExclusive)
 
 
-fun HalfOpenIntRange.mapBounds(transform: (Int) -> Int) =
-	transform(start) rangeToExcluding transform(endExclusive)
+inline fun <R : Comparable<R>> HalfOpenIntRange.mapBounds(transform: (Int) -> R) =
+	transform(startValue) rangeToExcluding transform(endValueExclusive)
 
 
 fun HalfOpenIntRange.subtracting(rangeToSubtract: HalfOpenIntRange): List<HalfOpenIntRange> {
-	if (rangeToSubtract.start >= endExclusive || rangeToSubtract.endExclusive <= start) {
+	if (rangeToSubtract.startValue >= endValueExclusive || rangeToSubtract.endValueExclusive <= startValue)
 		return listOf(this)
-	}
 
 	val result = mutableListOf<HalfOpenIntRange>()
-	if (rangeToSubtract.start > start) {
-		result.add(start rangeToExcluding rangeToSubtract.start)
-	}
-	if (rangeToSubtract.endExclusive < endExclusive) {
-		result.add(rangeToSubtract.endExclusive rangeToExcluding endExclusive)
-	}
+	if (rangeToSubtract.startValue > startValue)
+		result.add(startValue rangeToExcluding rangeToSubtract.startValue)
+	if (rangeToSubtract.endValueExclusive < endValueExclusive)
+		result.add(rangeToSubtract.endValueExclusive rangeToExcluding endValueExclusive)
 
 	return result
 }
 
 
+fun HalfOpenIntRange.toSequence(nextFunction: (Int) -> Int?) =
+	when {
+		isEmpty() -> emptySequence()
+		else -> generateSequence(startValue) { start ->
+			nextFunction(start)?.takeIf { value -> contains(value) }
+		}
+	}
+
+
 infix fun Int.rangeToExcluding(that: Int) =
-	HalfOpenIntRange(this, that)
+	HalfOpenIntRange(start = this, endExclusive = that)
