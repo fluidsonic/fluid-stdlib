@@ -17,7 +17,7 @@ This library is [available on Bintray](https://bintray.com/fluidsonic/maven/flui
 `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.github.fluidsonic:fluid-stdlib:0.9.25")
+    implementation("com.github.fluidsonic:fluid-stdlib:0.9.26")
 }
 ```
 
