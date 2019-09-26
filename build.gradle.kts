@@ -6,7 +6,7 @@ plugins {
 
 fluidLibrary {
 	name = "fluid-stdlib"
-	version = "0.9.25"
+	version = "0.9.26"
 }
 
 fluidLibraryVariant {
