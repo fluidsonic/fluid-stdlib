@@ -4,6 +4,14 @@ import kotlin.jvm.*
 import kotlin.math.*
 
 
+operator fun IntRange.component1() =
+	first
+
+
+operator fun IntRange.component2() =
+	last
+
+
 fun IntRange.flipped() =
 	last .. first
 

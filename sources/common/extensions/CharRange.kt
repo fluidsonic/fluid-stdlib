@@ -3,6 +3,14 @@ package com.github.fluidsonic.fluid.stdlib
 import kotlin.jvm.*
 
 
+operator fun CharRange.component1() =
+	first
+
+
+operator fun CharRange.component2() =
+	last
+
+
 fun CharRange.flipped() =
 	last .. first
 

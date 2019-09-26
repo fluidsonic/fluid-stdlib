@@ -5,6 +5,16 @@ import kotlin.math.*
 
 
 @ExperimentalUnsignedTypes
+operator fun ULongRange.component1() =
+	first
+
+
+@ExperimentalUnsignedTypes
+operator fun ULongRange.component2() =
+	last
+
+
+@ExperimentalUnsignedTypes
 fun ULongRange.flipped() =
 	last .. first
 

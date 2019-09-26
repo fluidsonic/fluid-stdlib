@@ -4,6 +4,26 @@ import kotlin.jvm.*
 import kotlin.math.*
 
 
+@JvmName("component1Double")
+operator fun ClosedFloatingPointRange<Double>.component1() =
+	start
+
+
+@JvmName("component1Float")
+operator fun ClosedFloatingPointRange<Float>.component1() =
+	start
+
+
+@JvmName("component2Double")
+operator fun ClosedFloatingPointRange<Double>.component2() =
+	endInclusive
+
+
+@JvmName("component2Float")
+operator fun ClosedFloatingPointRange<Float>.component2() =
+	endInclusive
+
+
 @JvmName("flippedDouble")
 fun ClosedFloatingPointRange<Double>.flipped() =
 	endInclusive .. start

@@ -3,6 +3,14 @@ package com.github.fluidsonic.fluid.stdlib
 import kotlin.jvm.*
 
 
+operator fun <Bound : Comparable<Bound>> ClosedRange<Bound>.component1() =
+	start
+
+
+operator fun <Bound : Comparable<Bound>> ClosedRange<Bound>.component2() =
+	endInclusive
+
+
 fun <Bound : Comparable<Bound>> ClosedRange<Bound>.flipped() =
 	endInclusive .. start
 
