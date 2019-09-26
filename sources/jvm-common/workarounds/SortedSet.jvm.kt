@@ -3,8 +3,10 @@ package com.github.fluidsonic.fluid.stdlib
 import java.util.*
 
 
-actual typealias _SortedSet<E> = SortedSet<E>
+internal class _InternalTreeSet<E> : TreeSet<E>(), MutableSet<E>
+
+internal actual typealias _SortedSet<E> = _InternalTreeSet<E>
 
 
-actual fun <T> _sortedSetOf(vararg elements: T): _SortedSet<T> =
-	sortedSetOf(*elements)
+internal actual fun <T> _sortedSetOf(vararg elements: T): _SortedSet<T> =
+	elements.toCollection(_InternalTreeSet())

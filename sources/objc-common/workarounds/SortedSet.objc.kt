@@ -1,13 +1,10 @@
 package com.github.fluidsonic.fluid.stdlib
 
 
-actual interface _SortedSet<E> : MutableSet<E>
-
-
 // TODO remove
-private class _SortedSetImpl<E> private constructor(
+internal actual class _SortedSet<E> private constructor(
 	private val container: MutableList<E>
-) : _SortedSet<E> {
+) : MutableSet<E> {
 
 	constructor(vararg elements: E) : this(container = elements.toMutableList()) {
 		sort()
@@ -79,5 +76,5 @@ private class _SortedSetImpl<E> private constructor(
 }
 
 
-actual fun <T> _sortedSetOf(vararg elements: T): _SortedSet<T> =
-	_SortedSetImpl(*elements)
+internal actual fun <T> _sortedSetOf(vararg elements: T) =
+	_SortedSet(*elements)

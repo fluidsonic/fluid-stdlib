@@ -2,7 +2,7 @@ package com.github.fluidsonic.fluid.stdlib
 
 
 // TODO remove
-actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
+internal actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 
 	private val container = hashMapOf<K, V>()
 	private val _entries = EntrySet()
