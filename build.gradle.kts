@@ -1,7 +1,7 @@
 import com.github.fluidsonic.fluid.library.*
 
 plugins {
-	id("com.github.fluidsonic.fluid-library") version "0.9.24"
+	id("com.github.fluidsonic.fluid-library") version "0.9.33"
 }
 
 fluidLibrary {
@@ -14,7 +14,7 @@ fluidLibraryVariant {
 
 	common {
 		dependencies {
-			api(fluid("time", "0.9.13"))
+			api(fluid("time", "0.9.14"))
 
 			implementation(kotlinx("serialization-runtime-common", "0.13.0"))
 		}
