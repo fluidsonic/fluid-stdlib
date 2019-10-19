@@ -1,6 +1,6 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
-import com.github.fluidsonic.fluid.time.*
+import io.fluidsonic.time.*
 
 
 expect fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat = DayOfWeekFormat.full): String

@@ -1,4 +1,4 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
 
 fun <Element> Set<Element>.intersects(other: Set<Element>) =

@@ -1,4 +1,4 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
 
 internal typealias PlatformDuration = org.threeten.bp.Duration

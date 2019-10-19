@@ -1,4 +1,4 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
 // TODO add all special cases for Char, Double, Float, Long, UInt, ULong
 

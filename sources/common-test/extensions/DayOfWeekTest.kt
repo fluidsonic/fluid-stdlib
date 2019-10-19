@@ -1,7 +1,7 @@
 package tests
 
-import com.github.fluidsonic.fluid.stdlib.*
-import com.github.fluidsonic.fluid.time.*
+import io.fluidsonic.stdlib.*
+import io.fluidsonic.time.*
 import kotlin.test.*
 
 

@@ -1,20 +1,17 @@
-import com.github.fluidsonic.fluid.library.*
+import io.fluidsonic.gradle.*
 
 plugins {
-	id("com.github.fluidsonic.fluid-library") version "0.9.33"
+	id("io.fluidsonic.gradle") version "1.0.0"
 }
 
-fluidLibrary {
-	name = "fluid-stdlib"
-	version = "0.9.27"
-}
+fluidLibrary(name = "stdlib", version = "0.9.28")
 
 fluidLibraryVariant {
 	description = "Potentially useful Kotlin standard library additions"
 
 	common {
 		dependencies {
-			api(fluid("time", "0.9.14"))
+			api(fluid("time", "0.9.15"))
 
 			implementation(kotlinx("serialization-runtime-common", "0.13.0"))
 		}

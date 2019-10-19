@@ -1,4 +1,4 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
 
 @Suppress("EXTENSION_SHADOWED_BY_MEMBER")

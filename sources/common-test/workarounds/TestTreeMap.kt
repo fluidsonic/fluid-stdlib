@@ -1,6 +1,6 @@
 package tests
 
-import com.github.fluidsonic.fluid.stdlib.*
+import io.fluidsonic.stdlib.*
 import kotlin.test.*
 
 

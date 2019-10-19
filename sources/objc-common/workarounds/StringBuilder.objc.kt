@@ -1,4 +1,4 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
 
 internal actual fun StringBuilder.replace(start: Int, end: Int, replacement: String) = apply {

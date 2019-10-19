@@ -1,4 +1,4 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
 
 fun String.truncatedTo(maximumLength: Int, truncationSuffix: String = ""): String {

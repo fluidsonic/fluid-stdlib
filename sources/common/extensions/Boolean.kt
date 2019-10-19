@@ -1,4 +1,4 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
 
 inline fun <Result> Boolean.thenTake(block: () -> Result) =

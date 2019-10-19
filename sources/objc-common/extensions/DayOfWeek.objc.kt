@@ -1,6 +1,6 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
-import com.github.fluidsonic.fluid.time.*
+import io.fluidsonic.time.*
 import platform.Foundation.*
 
 

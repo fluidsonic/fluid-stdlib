@@ -1,6 +1,6 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
-import com.github.fluidsonic.fluid.stdlib.Country_Static.allCountryCodes
+import io.fluidsonic.stdlib.Country_Static.allCountryCodes
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.*
 
@@ -56,7 +56,7 @@ internal expect object Country_Static {
 @Serializer(forClass = Country::class)
 internal object CountrySerializer : KSerializer<Country> {
 
-	override val descriptor = StringDescriptor.withName("com.github.fluidsonic.fluid.stdlib.Country")
+	override val descriptor = StringDescriptor.withName("io.fluidsonic.stdlib.Country")
 
 
 	override fun deserialize(decoder: Decoder) =

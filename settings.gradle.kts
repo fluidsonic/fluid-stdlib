@@ -1,16 +1,10 @@
 pluginManagement {
 	repositories {
-		bintray("kotlin/kotlin-eap")
 		gradlePluginPortal()
-		jcenter()
-		bintray("fluidsonic/maven")
+		maven("https://dl.bintray.com/fluidsonic/kotlin")
 	}
 }
 
 rootProject.name = "fluid-stdlib"
 
 enableFeaturePreview("GRADLE_METADATA")
-
-
-fun RepositoryHandler.bintray(name: String) =
-	maven("https://dl.bintray.com/$name")

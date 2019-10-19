@@ -1,4 +1,4 @@
-package com.github.fluidsonic.fluid.stdlib
+package io.fluidsonic.stdlib
 
 import kotlin.native.concurrent.freeze as nativeFreeze
 
