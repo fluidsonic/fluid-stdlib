@@ -6,7 +6,11 @@ import io.fluidsonic.time.*
 actual fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat): String {
 	val textStyle = when (format) {
 		DayOfWeekFormat.character -> PlatformTextStyle.NARROW
-		DayOfWeekFormat.characterStandalone -> PlatformTextStyle.NARROW_STANDALONE
+		DayOfWeekFormat.characterStandalone ->
+			if (System.getProperty("java.version").orEmpty().startsWith("1.8.")) // NARROW_STANDALONE is broken in Java 8
+				PlatformTextStyle.NARROW
+			else
+				PlatformTextStyle.NARROW_STANDALONE
 		DayOfWeekFormat.full -> PlatformTextStyle.FULL
 		DayOfWeekFormat.fullStandalone -> PlatformTextStyle.FULL_STANDALONE
 		DayOfWeekFormat.medium -> PlatformTextStyle.SHORT
