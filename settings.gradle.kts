@@ -6,5 +6,3 @@ pluginManagement {
 }
 
 rootProject.name = "fluid-stdlib"
-
-enableFeaturePreview("GRADLE_METADATA")
