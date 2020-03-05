@@ -1,6 +1,7 @@
 package io.fluidsonic.stdlib
 
 
+@OptIn(ExperimentalStdlibApi::class)
 internal actual fun StringBuilder.replace(start: Int, end: Int, replacement: String) = apply {
 	check(start in 0 .. length) { "start must be in 0 .. $length: $start" }
 	check(end in start .. length) { "end must be in $start .. $length: $end" }

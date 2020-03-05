@@ -24,3 +24,7 @@ inline fun check(value: Long, inRange: LongRange, name: String) =
 @Suppress("NOTHING_TO_INLINE")
 inline fun <Value : Comparable<Value>> check(value: Value, inRange: ClosedRange<Value>, name: String) =
 	check(value in inRange) { "$name must be in range $inRange: $value" }
+
+
+fun <T> identity(value: T) =
+	value

@@ -105,7 +105,7 @@ internal object CentsSerializer : KSerializer<Cents> {
 		Cents(decoder.decodeLong())
 
 
-	override fun serialize(encoder: Encoder, obj: Cents) {
-		encoder.encodeLong(obj.value)
+	override fun serialize(encoder: Encoder, value: Cents) {
+		encoder.encodeLong(value.value)
 	}
 }

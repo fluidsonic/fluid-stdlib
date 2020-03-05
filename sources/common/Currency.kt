@@ -2,7 +2,6 @@ package io.fluidsonic.stdlib
 
 import io.fluidsonic.stdlib.Currency_Static.allCurrencyCodes
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.*
 
 
 @Serializable(with = CurrencySerializer::class)
@@ -56,7 +55,7 @@ internal expect object Currency_Static {
 @Serializer(forClass = Currency::class)
 internal object CurrencySerializer : KSerializer<Currency> {
 
-	override val descriptor = StringDescriptor.withName("io.fluidsonic.stdlib.Currency")
+	override val descriptor = PrimitiveDescriptor("io.fluidsonic.stdlib.Currency", PrimitiveKind.STRING)
 
 
 	override fun deserialize(decoder: Decoder) =
@@ -65,7 +64,7 @@ internal object CurrencySerializer : KSerializer<Currency> {
 		}
 
 
-	override fun serialize(encoder: Encoder, obj: Currency) {
-		encoder.encodeString(obj.code)
+	override fun serialize(encoder: Encoder, value: Currency) {
+		encoder.encodeString(value.code)
 	}
 }

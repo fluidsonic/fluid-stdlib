@@ -477,6 +477,7 @@ class AttributedString private constructor(
 		}
 
 
+		@OptIn(ExperimentalStdlibApi::class)
 		fun replace(oldValue: String, newValue: AttributedString) {
 			var index = stringBuilder.lastIndexOf(oldValue)
 			while (index >= 0) {
@@ -491,6 +492,7 @@ class AttributedString private constructor(
 		}
 
 
+		@OptIn(ExperimentalStdlibApi::class)
 		fun replace(oldValue: String, newValue: String, attributes: StringAttributeMap = emptyStringAttributes()) {
 			var index = stringBuilder.lastIndexOf(oldValue)
 			while (index >= 0) {
