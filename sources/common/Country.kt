@@ -6,7 +6,7 @@ import kotlinx.serialization.*
 
 @Serializable(with = CountrySerializer::class)
 /*inline*/ class Country private constructor(
-	val code: String
+	val code: CountryCode
 ) {
 
 	init {
@@ -22,23 +22,23 @@ import kotlinx.serialization.*
 		code.hashCode()
 
 
-	val name
+	val name: String
 		get() = name(Locale.englishInUnitedStates)
 
 
-	override fun toString() =
+	override fun toString(): String =
 		name
 
 
 	companion object {
 
-		val all: Collection<Country> = allCountryCodes.map { Country(it.toUpperCase()) }
+		val all: Collection<Country> = allCountryCodes.map { Country(CountryCode(it.toUpperCase())) }
 
 		private val allByCode = all.associateBy(Country::code)
 
 
-		fun byCode(code: String) =
-			allByCode[code.toUpperCase()]
+		fun byCode(code: CountryCode) =
+			allByCode[code]
 	}
 }
 
@@ -60,11 +60,11 @@ internal object CountrySerializer : KSerializer<Country> {
 
 	override fun deserialize(decoder: Decoder) =
 		decoder.decodeString().let { code ->
-			Country.byCode(code) ?: throw SerializationException("Unknown country code: $code")
+			Country.byCode(CountryCode(code)) ?: throw SerializationException("Invalid country code: $code")
 		}
 
 
 	override fun serialize(encoder: Encoder, value: Country) {
-		encoder.encodeString(value.code)
+		encoder.encodeString(value.code.value)
 	}
 }

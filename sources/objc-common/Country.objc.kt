@@ -4,8 +4,8 @@ import platform.Foundation.*
 import platform.Foundation.NSLocale as PlatformLocale
 
 
-actual fun Country.name(locale: Locale) =
-	locale.toPlatform().localizedStringForCountryCode(code) ?: code
+actual fun Country.name(locale: Locale): String =
+	locale.toPlatform().localizedStringForCountryCode(code.value) ?: code.value
 
 
 internal actual object Country_Static {

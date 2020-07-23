@@ -4,7 +4,7 @@ import java.util.Locale as PlatformLocale
 
 
 actual fun Country.name(locale: Locale): String =
-	PlatformLocale("", code).getDisplayCountry(locale.toPlatform())
+	PlatformLocale("", code.value).getDisplayCountry(locale.toPlatform())
 
 
 internal actual object Country_Static {
