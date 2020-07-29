@@ -1,5 +1,5 @@
 package io.fluidsonic.stdlib
 
 
-fun <Element> Set<Element>.intersects(other: Set<Element>) =
+public fun <Element> Set<Element>.intersects(other: Set<Element>): Boolean =
 	any { other.contains(it) }

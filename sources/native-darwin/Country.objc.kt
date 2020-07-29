@@ -4,7 +4,7 @@ import platform.Foundation.*
 import platform.Foundation.NSLocale as PlatformLocale
 
 
-actual fun Country.name(locale: Locale): String =
+public actual fun Country.name(locale: Locale): String =
 	locale.toPlatform().localizedStringForCountryCode(code.value) ?: code.value
 
 

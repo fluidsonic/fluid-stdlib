@@ -4,7 +4,7 @@ import io.fluidsonic.time.*
 import platform.Foundation.*
 
 
-actual fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat): String {
+public actual fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat): String {
 	val platformLocale = locale.toPlatform()
 
 	val formatter = NSDateFormatter()

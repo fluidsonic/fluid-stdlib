@@ -4,7 +4,7 @@ import io.fluidsonic.stdlib.*
 import kotlin.test.*
 
 
-object TestTreeMap {
+class TestTreeMap {
 
 	@Test
 	fun testCreation() {

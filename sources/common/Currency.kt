@@ -2,11 +2,13 @@ package io.fluidsonic.stdlib
 
 import io.fluidsonic.stdlib.Currency_Static.allCurrencyCodes
 import kotlinx.serialization.*
+import kotlinx.serialization.descriptors.*
+import kotlinx.serialization.encoding.*
 
 
 @Serializable(with = CurrencySerializer::class)
-/*inline*/ class Currency internal constructor(
-	val code: String
+public /*inline*/ class Currency internal constructor(
+	public val code: String
 ) {
 
 	init {
@@ -14,36 +16,36 @@ import kotlinx.serialization.*
 	}
 
 
-	override fun equals(other: Any?) =
+	override fun equals(other: Any?): Boolean =
 		other === this || (other is Currency && code == other.code)
 
 
-	override fun hashCode() =
+	override fun hashCode(): Int =
 		code.hashCode()
 
 
-	val name
+	public val name: String
 		get() = name(Locale.englishInUnitedStates)
 
 
-	override fun toString() =
+	override fun toString(): String =
 		name
 
 
-	companion object {
+	public companion object {
 
-		val all: Collection<Currency> = allCurrencyCodes.map { Currency(it.toUpperCase()) }
+		public val all: Collection<Currency> = allCurrencyCodes.map { Currency(it.toUpperCase()) }
 
 		private val allByCode = all.associateBy(Currency::code)
 
 
-		fun byCode(code: String) =
+		public fun byCode(code: String): Currency? =
 			allByCode[code.toUpperCase()]
 	}
 }
 
 
-expect fun Currency.name(locale: Locale): String
+public expect fun Currency.name(locale: Locale): String
 
 
 internal expect object Currency_Static {
@@ -55,7 +57,7 @@ internal expect object Currency_Static {
 @Serializer(forClass = Currency::class)
 internal object CurrencySerializer : KSerializer<Currency> {
 
-	override val descriptor = PrimitiveDescriptor("io.fluidsonic.stdlib.Currency", PrimitiveKind.STRING)
+	override val descriptor = PrimitiveSerialDescriptor("io.fluidsonic.stdlib.Currency", PrimitiveKind.STRING)
 
 
 	override fun deserialize(decoder: Decoder) =

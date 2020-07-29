@@ -4,7 +4,7 @@ import platform.Foundation.*
 import platform.Foundation.NSLocale as PlatformLocale
 
 
-actual fun Currency.name(locale: Locale) =
+public actual fun Currency.name(locale: Locale): String =
 	locale.toPlatform().localizedStringForCurrencyCode(code) ?: code
 
 

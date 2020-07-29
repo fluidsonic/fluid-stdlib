@@ -3,10 +3,10 @@ package io.fluidsonic.stdlib
 import io.fluidsonic.time.*
 
 
-expect fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat = DayOfWeekFormat.full): String
+public expect fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat = DayOfWeekFormat.full): String
 
 
-enum class DayOfWeekFormat {
+public enum class DayOfWeekFormat {
 
 	character,            // M T W T F S S
 	characterStandalone,  // M T W T F S S

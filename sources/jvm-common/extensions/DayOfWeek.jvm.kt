@@ -3,7 +3,7 @@ package io.fluidsonic.stdlib
 import io.fluidsonic.time.*
 
 
-actual fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat): String {
+public actual fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat): String {
 	val textStyle = when (format) {
 		DayOfWeekFormat.character -> PlatformTextStyle.NARROW
 		DayOfWeekFormat.characterStandalone ->
@@ -34,7 +34,7 @@ actual fun DayOfWeek.displayName(locale: Locale, format: DayOfWeekFormat): Strin
 }
 
 
-fun PlatformDayOfWeek.toCommon() = when (this) {
+public fun PlatformDayOfWeek.toCommon(): DayOfWeek = when (this) {
 	PlatformDayOfWeek.MONDAY -> DayOfWeek.monday
 	PlatformDayOfWeek.TUESDAY -> DayOfWeek.tuesday
 	PlatformDayOfWeek.WEDNESDAY -> DayOfWeek.wednesday
@@ -45,7 +45,7 @@ fun PlatformDayOfWeek.toCommon() = when (this) {
 }
 
 
-fun DayOfWeek.toPlatform() =
+public fun DayOfWeek.toPlatform(): PlatformDayOfWeek =
 	when (this) {
 		DayOfWeek.monday -> PlatformDayOfWeek.MONDAY
 		DayOfWeek.tuesday -> PlatformDayOfWeek.TUESDAY

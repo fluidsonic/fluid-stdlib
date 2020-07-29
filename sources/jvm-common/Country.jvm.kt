@@ -3,7 +3,7 @@ package io.fluidsonic.stdlib
 import java.util.Locale as PlatformLocale
 
 
-actual fun Country.name(locale: Locale): String =
+public actual fun Country.name(locale: Locale): String =
 	PlatformLocale("", code.value).getDisplayCountry(locale.toPlatform())
 
 

@@ -1,13 +1,14 @@
 package io.fluidsonic.stdlib
 
 import kotlinx.serialization.*
+import kotlinx.serialization.encoding.*
 import kotlin.math.*
 
 
 @Serializable
-data /*inline*/ class Cents(val value: Long) : Comparable<Cents> {
+public data /*inline*/ class Cents(val value: Long) : Comparable<Cents> {
 
-	constructor(value: Int) : this(value.toLong())
+	public constructor(value: Int) : this(value.toLong())
 
 
 	init {
@@ -19,82 +20,82 @@ data /*inline*/ class Cents(val value: Long) : Comparable<Cents> {
 		get() = Cents(value.absoluteValue)
 
 
-	override operator fun compareTo(other: Cents) =
+	override operator fun compareTo(other: Cents): Int =
 		value.compareTo(other.value)
 
 
-	operator fun div(other: Int) =
+	public operator fun div(other: Int): Cents =
 		Cents(value / other)
 
 
-	operator fun div(other: Long) =
+	public operator fun div(other: Long): Cents =
 		Cents(value / other)
 
 
-	operator fun div(other: Cents) =
+	public operator fun div(other: Cents): Long =
 		value / other.value
 
 
-	val isNegative
+	public val isNegative: Boolean
 		get() = value < 0
 
 
-	val isPositive
+	public val isPositive: Boolean
 		get() = value < 0
 
 
-	val isZero
+	public val isZero: Boolean
 		get() = value == 0L
 
 
-	operator fun minus(other: Cents) =
+	public operator fun minus(other: Cents): Cents =
 		Cents(value - other.value)
 
 
-	operator fun plus(other: Cents) =
+	public operator fun plus(other: Cents): Cents =
 		Cents(value + other.value)
 
 
-	operator fun rem(other: Int) =
+	public operator fun rem(other: Int): Cents =
 		Cents(value % other)
 
 
-	operator fun rem(other: Long) =
+	public operator fun rem(other: Long): Cents =
 		Cents(value % other)
 
 
-	operator fun rem(other: Cents) =
+	public operator fun rem(other: Cents): Long =
 		value % other.value
 
 
-	operator fun times(other: Int) =
+	public operator fun times(other: Int): Cents =
 		Cents(value * other)
 
 
-	operator fun times(other: Long) =
+	public operator fun times(other: Long): Cents =
 		Cents(value * other)
 
 
-	override fun toString() =
+	override fun toString(): String =
 		value.toString()
 
 
-	operator fun unaryMinus() =
+	public operator fun unaryMinus(): Cents =
 		Cents(-value)
 
 
-	companion object {
+	public companion object {
 
-		val zero = Cents(0L)
+		public val zero: Cents = Cents(0L)
 	}
 }
 
 
-operator fun Int.times(other: Cents) =
+public operator fun Int.times(other: Cents): Cents =
 	other.times(this)
 
 
-operator fun Long.times(other: Cents) =
+public operator fun Long.times(other: Cents): Cents =
 	other.times(this)
 
 

@@ -1,22 +1,22 @@
 package io.fluidsonic.stdlib
 
 
-inline fun hash(block: HashScope.() -> Int) =
+public inline fun hash(block: HashScope.() -> Int): Int =
 	HashScope.block()
 
 
 @Suppress("NOTHING_TO_INLINE")
-object HashScope {
+public object HashScope {
 
-	inline infix fun Any?.x(hashable: Any?) =
+	public inline infix fun Any?.x(hashable: Any?): Int =
 		(31 * hashCode()) + hashable.hashCode()
 
-	inline infix fun Any?.x(hashable: Int) =
+	public inline infix fun Any?.x(hashable: Int): Int =
 		(31 * hashCode()) + hashable
 
-	inline infix fun Int.x(hashable: Any?) =
+	public inline infix fun Int.x(hashable: Any?): Int =
 		(31 * this) + hashable.hashCode()
 
-	inline infix fun Int.x(hashable: Int) =
+	public inline infix fun Int.x(hashable: Int): Int =
 		(31 * this) + hashable
 }

@@ -3,26 +3,26 @@ package io.fluidsonic.stdlib
 import java.util.Locale as PlatformLocale
 
 
-actual class Locale(
+public actual class Locale(
 	private val platform: PlatformLocale
 ) {
 
-	fun toPlatform() =
+	public fun toPlatform(): java.util.Locale =
 		platform
 
 
-	actual companion object {
+	public actual companion object {
 
-		actual val englishInUnitedStates = PlatformLocale.US.toCommon()
+		public actual val englishInUnitedStates: Locale = PlatformLocale.US.toCommon()
 	}
 }
 
 
-fun PlatformLocale.toCommon() =
+public fun PlatformLocale.toCommon(): Locale =
 	Locale(this)
 
 
-val PlatformLocale.usesTwelveHourClock
+public val PlatformLocale.usesTwelveHourClock: Boolean
 	get() = PlatformDateTimeFormatterBuilder.getLocalizedDateTimePattern(
 		null,
 		PlatformFormatStyle.MEDIUM,

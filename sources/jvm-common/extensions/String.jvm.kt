@@ -4,7 +4,7 @@ import java.text.*
 import java.util.Locale
 
 
-val String.unicodeLength: Int
+public val String.unicodeLength: Int
 	get() {
 		val characterIterator = BreakIterator.getCharacterInstance(Locale.ROOT)
 		characterIterator.setText(this)
@@ -18,7 +18,7 @@ val String.unicodeLength: Int
 	}
 
 
-fun String.unicodeSubstring(startIndex: Int): String {
+public fun String.unicodeSubstring(startIndex: Int): String {
 	require(startIndex >= 0) { "startIndex must be >= 0" }
 
 	val characterIterator = BreakIterator.getCharacterInstance(Locale.ROOT)
@@ -39,7 +39,7 @@ fun String.unicodeSubstring(startIndex: Int): String {
 }
 
 
-fun String.unicodeSubstring(startIndex: Int, endIndex: Int): String {
+public fun String.unicodeSubstring(startIndex: Int, endIndex: Int): String {
 	require(startIndex >= 0) { "startIndex must be >= 0" }
 	require(endIndex >= startIndex) { "endIndex must be >= startIndex" }
 

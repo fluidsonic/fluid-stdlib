@@ -4,63 +4,51 @@ import kotlin.jvm.*
 import kotlin.math.*
 
 
-@ExperimentalUnsignedTypes
-operator fun UIntRange.component1() =
+public operator fun UIntRange.component1(): UInt =
 	first
 
 
-@ExperimentalUnsignedTypes
-operator fun UIntRange.component2() =
+public operator fun UIntRange.component2(): UInt =
 	last
 
 
-@ExperimentalUnsignedTypes
-fun UIntRange.flipped() =
+public fun UIntRange.flipped(): UIntRange =
 	last .. first
 
 
-@ExperimentalUnsignedTypes
-fun <R : Comparable<R>> UIntRange.mapBounds(transform: (UInt) -> R) =
+public fun <R : Comparable<R>> UIntRange.mapBounds(transform: (UInt) -> R): ClosedRange<R> =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
 @JvmName("mapBoundsToDouble")
-fun UIntRange.mapBounds(transform: (UInt) -> Double) =
+public fun UIntRange.mapBounds(transform: (UInt) -> Double): ClosedFloatingPointRange<Double> =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
 @JvmName("mapBoundsToFloat")
-fun UIntRange.mapBounds(transform: (UInt) -> Float) =
+public fun UIntRange.mapBounds(transform: (UInt) -> Float): ClosedFloatingPointRange<Float> =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun UIntRange.mapBounds(transform: (UInt) -> Int) =
+public fun UIntRange.mapBounds(transform: (UInt) -> Int): IntRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun UIntRange.mapBounds(transform: (UInt) -> Long) =
+public fun UIntRange.mapBounds(transform: (UInt) -> Long): LongRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun UIntRange.mapBounds(transform: (UInt) -> UInt) =
+public fun UIntRange.mapBounds(transform: (UInt) -> UInt): UIntRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun UIntRange.mapBounds(transform: (UInt) -> ULong) =
+public fun UIntRange.mapBounds(transform: (UInt) -> ULong): ULongRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun UIntRange.intersection(other: UIntRange) =
+public fun UIntRange.intersection(other: UIntRange): HalfOpenRange<UInt>? =
 	overlaps(other).thenTake { max(first, other.first) rangeToExcluding min(last, other.last) }
 
 
-@ExperimentalUnsignedTypes
-fun UIntRange.overlaps(other: UIntRange) =
+public fun UIntRange.overlaps(other: UIntRange): Boolean =
 	contains(other.first) || other.contains(first)

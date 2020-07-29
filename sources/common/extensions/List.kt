@@ -1,9 +1,9 @@
 package io.fluidsonic.stdlib
 
 
-fun <Element> List<Element>.dropFirst() =
+public fun <Element> List<Element>.dropFirst(): List<Element> =
 	drop(1)
 
 
-fun <Element> List<Element>.dropLast() =
+public fun <Element> List<Element>.dropLast(): List<Element> =
 	dropLast(1)

@@ -3,53 +3,51 @@ package io.fluidsonic.stdlib
 import kotlin.jvm.*
 
 
-operator fun CharRange.component1() =
+public operator fun CharRange.component1(): Char =
 	first
 
 
-operator fun CharRange.component2() =
+public operator fun CharRange.component2(): Char =
 	last
 
 
-fun CharRange.flipped() =
+public fun CharRange.flipped(): CharRange =
 	last .. first
 
 
-fun <R : Comparable<R>> CharRange.mapBounds(transform: (Char) -> R) =
+public fun <R : Comparable<R>> CharRange.mapBounds(transform: (Char) -> R): ClosedRange<R> =
 	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToDouble")
-fun CharRange.mapBounds(transform: (Char) -> Double) =
+public fun CharRange.mapBounds(transform: (Char) -> Double): ClosedFloatingPointRange<Double> =
 	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToFloat")
-fun CharRange.mapBounds(transform: (Char) -> Float) =
+public fun CharRange.mapBounds(transform: (Char) -> Float): ClosedFloatingPointRange<Float> =
 	transform(first) .. transform(last)
 
 
-fun CharRange.mapBounds(transform: (Char) -> Int) =
+public fun CharRange.mapBounds(transform: (Char) -> Int): IntRange =
 	transform(first) .. transform(last)
 
 
-fun CharRange.mapBounds(transform: (Char) -> Long) =
+public fun CharRange.mapBounds(transform: (Char) -> Long): LongRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun CharRange.mapBounds(transform: (Char) -> UInt) =
+public fun CharRange.mapBounds(transform: (Char) -> UInt): UIntRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun CharRange.mapBounds(transform: (Char) -> ULong) =
+public fun CharRange.mapBounds(transform: (Char) -> ULong): ULongRange =
 	transform(first) .. transform(last)
 
 
-fun CharRange.intersection(other: CharRange) =
+public fun CharRange.intersection(other: CharRange): HalfOpenRange<Char>? =
 	overlaps(other).thenTake { maxOf(first, other.first) rangeToExcluding minOf(last, other.last) }
 
 
-fun CharRange.overlaps(other: CharRange) =
+public fun CharRange.overlaps(other: CharRange): Boolean =
 	contains(other.first) || other.contains(first)

@@ -4,53 +4,51 @@ import kotlin.jvm.*
 import kotlin.math.*
 
 
-operator fun LongRange.component1() =
+public operator fun LongRange.component1(): Long =
 	first
 
 
-operator fun LongRange.component2() =
+public operator fun LongRange.component2(): Long =
 	last
 
 
-fun LongRange.flipped() =
+public fun LongRange.flipped(): LongRange =
 	last .. first
 
 
-fun <R : Comparable<R>> LongRange.mapBounds(transform: (Long) -> R) =
+public fun <R : Comparable<R>> LongRange.mapBounds(transform: (Long) -> R): ClosedRange<R> =
 	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToDouble")
-fun LongRange.mapBounds(transform: (Long) -> Double) =
+public fun LongRange.mapBounds(transform: (Long) -> Double): ClosedFloatingPointRange<Double> =
 	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToFloat")
-fun LongRange.mapBounds(transform: (Long) -> Float) =
+public fun LongRange.mapBounds(transform: (Long) -> Float): ClosedFloatingPointRange<Float> =
 	transform(first) .. transform(last)
 
 
-fun LongRange.mapBounds(transform: (Long) -> Int) =
+public fun LongRange.mapBounds(transform: (Long) -> Int): IntRange =
 	transform(first) .. transform(last)
 
 
-fun LongRange.mapBounds(transform: (Long) -> Long) =
+public fun LongRange.mapBounds(transform: (Long) -> Long): LongRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun LongRange.mapBounds(transform: (Long) -> UInt) =
+public fun LongRange.mapBounds(transform: (Long) -> UInt): UIntRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun LongRange.mapBounds(transform: (Long) -> ULong) =
+public fun LongRange.mapBounds(transform: (Long) -> ULong): ULongRange =
 	transform(first) .. transform(last)
 
 
-fun LongRange.intersection(other: LongRange) =
+public fun LongRange.intersection(other: LongRange): HalfOpenRange<Long>? =
 	overlaps(other).thenTake { max(first, other.first) rangeToExcluding min(last, other.last) }
 
 
-fun LongRange.overlaps(other: LongRange) =
+public fun LongRange.overlaps(other: LongRange): Boolean =
 	contains(other.first) || other.contains(first)

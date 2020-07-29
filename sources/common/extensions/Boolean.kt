@@ -1,5 +1,5 @@
 package io.fluidsonic.stdlib
 
 
-inline fun <Result> Boolean.thenTake(block: () -> Result) =
+public inline fun <Result> Boolean.thenTake(block: () -> Result): Result? =
 	if (this) block() else null

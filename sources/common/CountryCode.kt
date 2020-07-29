@@ -1,10 +1,12 @@
 package io.fluidsonic.stdlib
 
 import kotlinx.serialization.*
+import kotlinx.serialization.descriptors.*
+import kotlinx.serialization.encoding.*
 
 
 @Serializable(with = CountrySerializer::class)
-/*inline*/ class CountryCode(val value: String) {
+public /*inline*/ class CountryCode(public val value: String) {
 
 	private val uppercaseValue = value.toUpperCase()
 
@@ -14,15 +16,15 @@ import kotlinx.serialization.*
 	}
 
 
-	override fun equals(other: Any?) =
+	override fun equals(other: Any?): Boolean =
 		other === this || (other is CountryCode && uppercaseValue == other.uppercaseValue)
 
 
-	override fun hashCode() =
+	override fun hashCode(): Int =
 		uppercaseValue.hashCode()
 
 
-	override fun toString() =
+	override fun toString(): String =
 		value
 }
 
@@ -30,7 +32,7 @@ import kotlinx.serialization.*
 @Serializer(forClass = CountryCode::class)
 internal object CountryCodeSerializer : KSerializer<CountryCode> {
 
-	override val descriptor = PrimitiveDescriptor("io.fluidsonic.stdlib.CountryCode", PrimitiveKind.STRING)
+	override val descriptor = PrimitiveSerialDescriptor("io.fluidsonic.stdlib.CountryCode", PrimitiveKind.STRING)
 
 
 	override fun deserialize(decoder: Decoder) =

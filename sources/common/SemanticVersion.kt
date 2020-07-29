@@ -1,7 +1,7 @@
 package io.fluidsonic.stdlib
 
 
-data class SemanticVersion(
+public data class SemanticVersion(
 	val major: Int,
 	val minor: Int = 0,
 	val patch: Int = 0
@@ -31,16 +31,16 @@ data class SemanticVersion(
 	}
 
 
-	override fun toString() =
+	override fun toString(): String =
 		"$major.$minor.$patch"
 
 
-	companion object {
+	public companion object {
 
 		private val pattern = Regex("(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?)?")
 
 
-		fun parse(string: String): SemanticVersion? {
+		public fun parse(string: String): SemanticVersion? {
 			val match = pattern.matchEntire(string) ?: return null
 
 			return try {

@@ -1,10 +1,10 @@
 package io.fluidsonic.stdlib
 
 
-expect class Locale {
+public expect class Locale {
 
-	companion object {
+	public companion object {
 
-		val englishInUnitedStates: Locale
+		public val englishInUnitedStates: Locale
 	}
 }

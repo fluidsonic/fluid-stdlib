@@ -4,7 +4,7 @@ import io.fluidsonic.stdlib.*
 import kotlin.test.*
 
 
-object CurrencyTest {
+class CurrencyTest {
 
 	@Test
 	fun testSerializer() = assertJsonSerialization(

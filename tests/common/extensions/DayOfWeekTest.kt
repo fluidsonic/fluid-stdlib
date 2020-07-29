@@ -5,7 +5,7 @@ import io.fluidsonic.time.*
 import kotlin.test.*
 
 
-object DayOfWeekTest {
+class DayOfWeekTest {
 
 	private val locale = Locale.englishInUnitedStates
 

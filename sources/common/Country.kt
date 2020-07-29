@@ -2,11 +2,13 @@ package io.fluidsonic.stdlib
 
 import io.fluidsonic.stdlib.Country_Static.allCountryCodes
 import kotlinx.serialization.*
+import kotlinx.serialization.descriptors.*
+import kotlinx.serialization.encoding.*
 
 
 @Serializable(with = CountrySerializer::class)
-/*inline*/ class Country private constructor(
-	val code: CountryCode
+public /*inline*/ class Country private constructor(
+	public val code: CountryCode
 ) {
 
 	init {
@@ -14,15 +16,15 @@ import kotlinx.serialization.*
 	}
 
 
-	override fun equals(other: Any?) =
+	override fun equals(other: Any?): Boolean =
 		other === this || (other is Country && code == other.code)
 
 
-	override fun hashCode() =
+	override fun hashCode(): Int =
 		code.hashCode()
 
 
-	val name: String
+	public val name: String
 		get() = name(Locale.englishInUnitedStates)
 
 
@@ -30,20 +32,20 @@ import kotlinx.serialization.*
 		name
 
 
-	companion object {
+	public companion object {
 
-		val all: Collection<Country> = allCountryCodes.map { Country(CountryCode(it.toUpperCase())) }
+		public val all: Collection<Country> = allCountryCodes.map { Country(CountryCode(it.toUpperCase())) }
 
 		private val allByCode = all.associateBy(Country::code)
 
 
-		fun byCode(code: CountryCode) =
+		public fun byCode(code: CountryCode): Country? =
 			allByCode[code]
 	}
 }
 
 
-expect fun Country.name(locale: Locale): String
+public expect fun Country.name(locale: Locale): String
 
 
 internal expect object Country_Static {
@@ -55,7 +57,7 @@ internal expect object Country_Static {
 @Serializer(forClass = Country::class)
 internal object CountrySerializer : KSerializer<Country> {
 
-	override val descriptor = PrimitiveDescriptor("io.fluidsonic.stdlib.Country", PrimitiveKind.STRING)
+	override val descriptor = PrimitiveSerialDescriptor("io.fluidsonic.stdlib.Country", PrimitiveKind.STRING)
 
 
 	override fun deserialize(decoder: Decoder) =

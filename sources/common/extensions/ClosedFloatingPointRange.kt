@@ -5,124 +5,120 @@ import kotlin.math.*
 
 
 @JvmName("component1Double")
-operator fun ClosedFloatingPointRange<Double>.component1() =
+public operator fun ClosedFloatingPointRange<Double>.component1(): Double =
 	start
 
 
 @JvmName("component1Float")
-operator fun ClosedFloatingPointRange<Float>.component1() =
+public operator fun ClosedFloatingPointRange<Float>.component1(): Float =
 	start
 
 
 @JvmName("component2Double")
-operator fun ClosedFloatingPointRange<Double>.component2() =
+public operator fun ClosedFloatingPointRange<Double>.component2(): Double =
 	endInclusive
 
 
 @JvmName("component2Float")
-operator fun ClosedFloatingPointRange<Float>.component2() =
+public operator fun ClosedFloatingPointRange<Float>.component2(): Float =
 	endInclusive
 
 
 @JvmName("flippedDouble")
-fun ClosedFloatingPointRange<Double>.flipped() =
+public fun ClosedFloatingPointRange<Double>.flipped(): ClosedFloatingPointRange<Double> =
 	endInclusive .. start
 
 
 @JvmName("flippedFloat")
-fun ClosedFloatingPointRange<Float>.flipped() =
+public fun ClosedFloatingPointRange<Float>.flipped(): ClosedFloatingPointRange<Float> =
 	endInclusive .. start
 
 
 @JvmName("mapFloatBounds")
-fun <R : Comparable<R>> ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> R) =
+public fun <R : Comparable<R>> ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> R): ClosedRange<R> =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapDoubleBounds")
-fun <R : Comparable<R>> ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> R) =
+public fun <R : Comparable<R>> ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> R): ClosedRange<R> =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapFloatBoundsToDouble")
-fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> Double) =
+public fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> Double): ClosedFloatingPointRange<Double> =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapDoubleBoundsToDouble")
-fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> Double) =
+public fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> Double): ClosedFloatingPointRange<Double> =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapFloatBoundsToFloat")
-fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> Float) =
+public fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> Float): ClosedFloatingPointRange<Float> =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapDoubleBoundsToFloat")
-fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> Float) =
+public fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> Float): ClosedFloatingPointRange<Float> =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapFloatBounds")
-fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> Int) =
+public fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> Int): IntRange =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapDoubleBounds")
-fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> Int) =
+public fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> Int): IntRange =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapFloatBounds")
-fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> Long) =
+public fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> Long): LongRange =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("mapDoubleBounds")
-fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> Long) =
+public fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> Long): LongRange =
 	transform(start) .. transform(endInclusive)
 
 
-@ExperimentalUnsignedTypes
 @JvmName("mapFloatBounds")
-fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> UInt) =
+public fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> UInt): UIntRange =
 	transform(start) .. transform(endInclusive)
 
 
-@ExperimentalUnsignedTypes
 @JvmName("mapDoubleBounds")
-fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> UInt) =
+public fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> UInt): UIntRange =
 	transform(start) .. transform(endInclusive)
 
 
-@ExperimentalUnsignedTypes
 @JvmName("mapFloatBounds")
-fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> ULong) =
+public fun ClosedFloatingPointRange<Float>.mapBounds(transform: (Float) -> ULong): ULongRange =
 	transform(start) .. transform(endInclusive)
 
 
-@ExperimentalUnsignedTypes
 @JvmName("mapDoubleBounds")
-fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> ULong) =
+public fun ClosedFloatingPointRange<Double>.mapBounds(transform: (Double) -> ULong): ULongRange =
 	transform(start) .. transform(endInclusive)
 
 
 @JvmName("intersectionFloat")
-fun ClosedFloatingPointRange<Float>.intersection(other: ClosedFloatingPointRange<Float>) =
+public fun ClosedFloatingPointRange<Float>.intersection(other: ClosedFloatingPointRange<Float>): HalfOpenRange<Float>? =
 	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endInclusive, other.endInclusive) }
 
 
 @JvmName("intersectionDouble")
-fun ClosedFloatingPointRange<Double>.intersection(other: ClosedFloatingPointRange<Double>) =
+public fun ClosedFloatingPointRange<Double>.intersection(other: ClosedFloatingPointRange<Double>): HalfOpenRange<Double>? =
 	overlaps(other).thenTake { max(start, other.start) rangeToExcluding min(endInclusive, other.endInclusive) }
 
 
 @JvmName("overlapsFloat")
-fun ClosedFloatingPointRange<Float>.overlaps(other: ClosedFloatingPointRange<Float>) =
+public fun ClosedFloatingPointRange<Float>.overlaps(other: ClosedFloatingPointRange<Float>): Boolean =
 	contains(other.start) || other.contains(start)
 
 
 @JvmName("overlapsDouble")
-fun ClosedFloatingPointRange<Double>.overlaps(other: ClosedFloatingPointRange<Double>) =
+public fun ClosedFloatingPointRange<Double>.overlaps(other: ClosedFloatingPointRange<Double>): Boolean =
 	contains(other.start) || other.contains(start)

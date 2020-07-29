@@ -4,7 +4,7 @@ import io.fluidsonic.stdlib.*
 import kotlin.test.*
 
 
-object AttributedStringTest {
+class AttributedStringTest {
 
 	private object TestAttribute : StringAttribute<Unit>
 

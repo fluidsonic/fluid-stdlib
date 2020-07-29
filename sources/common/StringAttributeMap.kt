@@ -2,70 +2,70 @@ package io.fluidsonic.stdlib
 
 
 @Suppress("unused")
-interface StringAttribute<Value : Any>
+public interface StringAttribute<Value : Any>
 
 
-interface StringAttributeMap {
+public interface StringAttributeMap {
 
-	val attributes: Set<StringAttribute<*>>
+	public val attributes: Set<StringAttribute<*>>
 
-	fun containsAttribute(attribute: StringAttribute<*>) =
+	public fun containsAttribute(attribute: StringAttribute<*>): Boolean =
 		attributes.contains(attribute)
 
-	val entries: Set<Map.Entry<StringAttribute<*>, Any>>
+	public val entries: Set<Map.Entry<StringAttribute<*>, Any>>
 
-	fun isEmpty() =
+	public fun isEmpty(): Boolean =
 		attributes.isEmpty()
 
-	operator fun iterator(): Iterator<StringAttribute<*>> =
+	public operator fun iterator(): Iterator<StringAttribute<*>> =
 		attributes.iterator()
 
-	val size: Int
+	public val size: Int
 		get() = attributes.size
 
-	fun toImmutable(): StringAttributeMap =
+	public fun toImmutable(): StringAttributeMap =
 		when (size) {
 			0 -> EmptyStringAttributeMap
 			1 -> entries.first().let { SingleElementStringAttributeMap(attribute = it.key, value = it.value) }
 			else -> StringAttributeHashMap(entries.associateTo(HashMap(size)) { it.key to it.value })
 		}
 
-	fun toImmutableMap(): Map<StringAttribute<*>, Any> =
+	public fun toImmutableMap(): Map<StringAttribute<*>, Any> =
 		toMap().toHashMap()
 
-	fun toMap(): Map<StringAttribute<*>, Any>
+	public fun toMap(): Map<StringAttribute<*>, Any>
 
-	fun toMutable(): MutableStringAttributeMap =
+	public fun toMutable(): MutableStringAttributeMap =
 		MutableStringAttributeHashMap(entries.associateTo(HashMap(size)) { it.key to it.value })
 
-	fun toMutableMap(): MutableMap<StringAttribute<*>, Any> =
+	public fun toMutableMap(): MutableMap<StringAttribute<*>, Any> =
 		toMap().toHashMap()
 
-	fun valueForAttribute(attribute: StringAttribute<*>): Any?
+	public fun valueForAttribute(attribute: StringAttribute<*>): Any?
 
 
-	companion object
+	public companion object
 }
 
 
-interface MutableStringAttributeMap : StringAttributeMap {
+public interface MutableStringAttributeMap : StringAttributeMap {
 
-	fun clear()
+	public fun clear()
 
 	override operator fun iterator(): MutableIterator<StringAttribute<*>>
 
-	fun put(attribute: StringAttribute<*>, value: Any): Any?
+	public fun put(attribute: StringAttribute<*>, value: Any): Any?
 
-	fun putAll(attributes: StringAttributeMap) {
+	public fun putAll(attributes: StringAttributeMap) {
 		for ((attribute, value) in attributes.entries) {
 			put(attribute, value)
 		}
 	}
 
-	fun removeAttribute(attribute: StringAttribute<*>): Any?
+	public fun removeAttribute(attribute: StringAttribute<*>): Any?
 
 
-	companion object
+	public companion object
 }
 
 
@@ -182,7 +182,7 @@ private class SingleElementStringAttributeMap(
 
 
 private class StringAttributeHashMap(
-	internal val map: HashMap<StringAttribute<*>, Any>
+	val map: HashMap<StringAttribute<*>, Any>
 ) : StringAttributeMap {
 
 	init {
@@ -236,7 +236,7 @@ private class StringAttributeHashMap(
 
 
 private class MutableStringAttributeHashMap(
-	internal val map: HashMap<StringAttribute<*>, Any> = hashMapOf()
+	val map: HashMap<StringAttribute<*>, Any> = hashMapOf()
 ) : MutableStringAttributeMap {
 
 	override val attributes: Set<StringAttribute<*>>
@@ -306,95 +306,95 @@ private class MutableStringAttributeHashMap(
 }
 
 
-fun emptyStringAttributes(): StringAttributeMap =
+public fun emptyStringAttributes(): StringAttributeMap =
 	EmptyStringAttributeMap
 
 
-fun mutableStringAttributesOf(): MutableStringAttributeMap =
+public fun mutableStringAttributesOf(): MutableStringAttributeMap =
 	MutableStringAttributeHashMap()
 
 
-fun mutableStringAttributesOf(pair: Pair<StringAttribute<*>, Any>): MutableStringAttributeMap =
+public fun mutableStringAttributesOf(pair: Pair<StringAttribute<*>, Any>): MutableStringAttributeMap =
 	MutableStringAttributeHashMap(hashMapOf(pair))
 
 
-fun mutableStringAttributesOf(vararg pairs: Pair<StringAttribute<*>, Any>): MutableStringAttributeMap =
+public fun mutableStringAttributesOf(vararg pairs: Pair<StringAttribute<*>, Any>): MutableStringAttributeMap =
 	MutableStringAttributeHashMap(hashMapOf(*pairs))
 
 
-fun stringAttributesOf() =
+public fun stringAttributesOf(): StringAttributeMap =
 	emptyStringAttributes()
 
 
-fun stringAttributesOf(pair: Pair<StringAttribute<*>, Any>): StringAttributeMap =
+public fun stringAttributesOf(pair: Pair<StringAttribute<*>, Any>): StringAttributeMap =
 	SingleElementStringAttributeMap(attribute = pair.first, value = pair.second)
 
 
-fun stringAttributesOf(vararg pairs: Pair<StringAttribute<*>, Any>) =
+public fun stringAttributesOf(vararg pairs: Pair<StringAttribute<*>, Any>): StringAttributeMap =
 	pairs.toAttributes()
 
 
-inline operator fun <Attribute, reified Value> StringAttributeMap.get(attribute: Attribute): Value?
+public inline operator fun <Attribute, reified Value> StringAttributeMap.get(attribute: Attribute): Value?
 	where Attribute : StringAttribute<out Value>, Value : Any =
 	valueForAttribute(attribute as StringAttribute<*>) as? Value
 
 
-fun StringAttributeMap.isNotEmpty() =
+public fun StringAttributeMap.isNotEmpty(): Boolean =
 	!isEmpty()
 
 
-fun MutableStringAttributeMap.put(pair: Pair<StringAttribute<*>, Any>) =
+public fun MutableStringAttributeMap.put(pair: Pair<StringAttribute<*>, Any>): Any? =
 	put(pair.first, pair.second)
 
 
-fun MutableStringAttributeMap.putAll(pairs: Array<Pair<StringAttribute<*>, Any>>) {
+public fun MutableStringAttributeMap.putAll(pairs: Array<Pair<StringAttribute<*>, Any>>) {
 	for (pair in pairs) {
 		put(pair)
 	}
 }
 
 
-fun MutableStringAttributeMap.putAll(pairs: Iterable<Pair<StringAttribute<*>, Any>>) {
+public fun MutableStringAttributeMap.putAll(pairs: Iterable<Pair<StringAttribute<*>, Any>>) {
 	for (pair in pairs) {
 		put(pair)
 	}
 }
 
 
-fun MutableStringAttributeMap.putAll(pairs: Sequence<Pair<StringAttribute<*>, Any>>) {
+public fun MutableStringAttributeMap.putAll(pairs: Sequence<Pair<StringAttribute<*>, Any>>) {
 	for (pair in pairs) {
 		put(pair)
 	}
 }
 
 
-fun MutableStringAttributeMap.removeAttributes(attributes: Array<StringAttribute<*>>) {
+public fun MutableStringAttributeMap.removeAttributes(attributes: Array<StringAttribute<*>>) {
 	for (attribute in attributes) {
 		removeAttribute(attribute)
 	}
 }
 
 
-fun MutableStringAttributeMap.removeAttributes(attributes: Iterable<StringAttribute<*>>) {
+public fun MutableStringAttributeMap.removeAttributes(attributes: Iterable<StringAttribute<*>>) {
 	for (attribute in attributes) {
 		removeAttribute(attribute)
 	}
 }
 
 
-fun MutableStringAttributeMap.removeAttributes(attributes: Sequence<StringAttribute<*>>) {
+public fun MutableStringAttributeMap.removeAttributes(attributes: Sequence<StringAttribute<*>>) {
 	for (attribute in attributes) {
 		removeAttribute(attribute)
 	}
 }
 
 
-inline operator fun <Attribute, reified Value> MutableStringAttributeMap.set(attribute: Attribute, value: Value): Value?
+public inline operator fun <Attribute, reified Value> MutableStringAttributeMap.set(attribute: Attribute, value: Value): Value?
 	where Attribute : StringAttribute<out Value>, Value : Any =
 	put(attribute = attribute, value = value) as? Value
 
 
-fun Array<out Pair<StringAttribute<*>, Any>>.toAttributes(): StringAttributeMap =
+public fun Array<out Pair<StringAttribute<*>, Any>>.toAttributes(): StringAttributeMap =
 	when (size) {
 		0 -> emptyStringAttributes()
 		1 -> stringAttributesOf(this[0])
@@ -402,7 +402,7 @@ fun Array<out Pair<StringAttribute<*>, Any>>.toAttributes(): StringAttributeMap 
 	}
 
 
-fun Iterable<Pair<StringAttribute<*>, Any>>.toAttributes(): StringAttributeMap {
+public fun Iterable<Pair<StringAttribute<*>, Any>>.toAttributes(): StringAttributeMap {
 	if (this is Collection) {
 		when (size) {
 			0 -> return emptyStringAttributes()
@@ -414,9 +414,9 @@ fun Iterable<Pair<StringAttribute<*>, Any>>.toAttributes(): StringAttributeMap {
 }
 
 
-fun Sequence<Pair<StringAttribute<*>, Any>>.toAttributes(): StringAttributeMap =
+public fun Sequence<Pair<StringAttribute<*>, Any>>.toAttributes(): StringAttributeMap =
 	StringAttributeHashMap(toMap(hashMapOf()))
 
 
-infix fun <Attribute, Value> Attribute.with(value: Value)
+public infix fun <Attribute, Value> Attribute.with(value: Value): Pair<Attribute, Value>
 	where Attribute : StringAttribute<Value>, Value : Any = this to value

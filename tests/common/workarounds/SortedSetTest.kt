@@ -4,7 +4,7 @@ import io.fluidsonic.stdlib.*
 import kotlin.test.*
 
 
-object SortedSetTest {
+class SortedSetTest {
 
 	@Test
 	fun testAdd() {

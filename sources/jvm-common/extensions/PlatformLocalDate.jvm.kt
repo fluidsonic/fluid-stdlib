@@ -1,10 +1,10 @@
 package io.fluidsonic.stdlib
 
 
-fun PlatformLocalDate.atEndOfDay(): PlatformLocalDateTime = atTime(PlatformLocalTime.MAX)
+public fun PlatformLocalDate.atEndOfDay(): PlatformLocalDateTime = atTime(PlatformLocalTime.MAX)
 
 
-fun PlatformLocalDate.atEndOfDay(zone: PlatformZoneId): PlatformZonedDateTime {
+public fun PlatformLocalDate.atEndOfDay(zone: PlatformZoneId): PlatformZonedDateTime {
 	var localDateTime = atTime(PlatformLocalTime.MAX)
 	if (zone !is PlatformZoneOffset) {
 		val rules = zone.rules

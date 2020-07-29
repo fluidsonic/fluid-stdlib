@@ -3,7 +3,7 @@ package io.fluidsonic.stdlib
 import java.util.Currency as PlatformCurrency
 
 
-actual fun Currency.name(locale: Locale): String =
+public actual fun Currency.name(locale: Locale): String =
 	PlatformCurrency.getInstance(code).getDisplayName(locale.toPlatform())
 
 

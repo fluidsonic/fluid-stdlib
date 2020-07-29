@@ -4,53 +4,51 @@ import kotlin.jvm.*
 import kotlin.math.*
 
 
-operator fun IntRange.component1() =
+public operator fun IntRange.component1(): Int =
 	first
 
 
-operator fun IntRange.component2() =
+public operator fun IntRange.component2(): Int =
 	last
 
 
-fun IntRange.flipped() =
+public fun IntRange.flipped(): IntRange =
 	last .. first
 
 
-fun <R : Comparable<R>> IntRange.mapBounds(transform: (Int) -> R) =
+public fun <R : Comparable<R>> IntRange.mapBounds(transform: (Int) -> R): ClosedRange<R> =
 	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToDouble")
-fun IntRange.mapBounds(transform: (Int) -> Double) =
+public fun IntRange.mapBounds(transform: (Int) -> Double): ClosedFloatingPointRange<Double> =
 	transform(first) .. transform(last)
 
 
 @JvmName("mapBoundsToFloat")
-fun IntRange.mapBounds(transform: (Int) -> Float) =
+public fun IntRange.mapBounds(transform: (Int) -> Float): ClosedFloatingPointRange<Float> =
 	transform(first) .. transform(last)
 
 
-fun IntRange.mapBounds(transform: (Int) -> Int) =
+public fun IntRange.mapBounds(transform: (Int) -> Int): IntRange =
 	transform(first) .. transform(last)
 
 
-fun IntRange.mapBounds(transform: (Int) -> Long) =
+public fun IntRange.mapBounds(transform: (Int) -> Long): LongRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun IntRange.mapBounds(transform: (Int) -> UInt) =
+public fun IntRange.mapBounds(transform: (Int) -> UInt): UIntRange =
 	transform(first) .. transform(last)
 
 
-@ExperimentalUnsignedTypes
-fun IntRange.mapBounds(transform: (Int) -> ULong) =
+public fun IntRange.mapBounds(transform: (Int) -> ULong): ULongRange =
 	transform(first) .. transform(last)
 
 
-fun IntRange.intersection(other: IntRange) =
+public fun IntRange.intersection(other: IntRange): HalfOpenIntRange? =
 	overlaps(other).thenTake { max(first, other.first) rangeToExcluding min(last, other.last) }
 
 
-fun IntRange.overlaps(other: IntRange) =
+public fun IntRange.overlaps(other: IntRange): Boolean =
 	contains(other.first) || other.contains(first)

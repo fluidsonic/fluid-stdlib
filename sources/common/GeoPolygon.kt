@@ -1,7 +1,7 @@
 package io.fluidsonic.stdlib
 
 
-data class GeoPolygon(
+public data class GeoPolygon(
 	val points: List<GeoCoordinate>
 ) {
 

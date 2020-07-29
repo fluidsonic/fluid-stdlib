@@ -3,49 +3,49 @@ package io.fluidsonic.stdlib
 // TODO add all special cases for Char, Double, Float, Long, UInt, ULong
 
 
-interface HalfOpenRange<Bound : Comparable<Bound>> {
+public interface HalfOpenRange<Bound : Comparable<Bound>> {
 
-	val start: Bound
-	val endExclusive: Bound
+	public val start: Bound
+	public val endExclusive: Bound
 
 
-	operator fun contains(value: Bound) =
+	public operator fun contains(value: Bound): Boolean =
 		value >= start && value < endExclusive
 
 
-	fun isEmpty() =
+	public fun isEmpty(): Boolean =
 		start >= endExclusive
 
 
-	companion object
+	public companion object
 }
 
 
-fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.contains(other: HalfOpenRange<Bound>) =
+public fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.contains(other: HalfOpenRange<Bound>): Boolean =
 	contains(other.start) && other.endExclusive <= endExclusive
 
 
-fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.flipped() =
+public fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.flipped(): HalfOpenRange<Bound> =
 	endExclusive rangeToExcluding start
 
 
-fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.intersection(other: HalfOpenRange<Bound>) =
+public fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.intersection(other: HalfOpenRange<Bound>): HalfOpenRange<Bound>? =
 	overlaps(other).thenTake { maxOf(start, other.start) rangeToExcluding minOf(endExclusive, other.endExclusive) }
 
 
-fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.overlaps(other: HalfOpenRange<Bound>) =
+public fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.overlaps(other: HalfOpenRange<Bound>): Boolean =
 	contains(other.start) || other.contains(start)
 
 
-inline fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.mapBounds(transform: (Bound) -> Int) =
+public inline fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.mapBounds(transform: (Bound) -> Int): HalfOpenIntRange =
 	transform(start) rangeToExcluding transform(endExclusive)
 
 
-inline fun <Bound : Comparable<Bound>, R : Comparable<R>> HalfOpenRange<Bound>.mapBounds(transform: (Bound) -> R) =
+public inline fun <Bound : Comparable<Bound>, R : Comparable<R>> HalfOpenRange<Bound>.mapBounds(transform: (Bound) -> R): HalfOpenRange<R> =
 	transform(start) rangeToExcluding transform(endExclusive)
 
 
-fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.subtracting(rangeToSubtract: HalfOpenRange<Bound>): List<HalfOpenRange<Bound>> {
+public fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.subtracting(rangeToSubtract: HalfOpenRange<Bound>): List<HalfOpenRange<Bound>> {
 	if (rangeToSubtract.start >= endExclusive || rangeToSubtract.endExclusive <= start)
 		return listOf(this)
 
@@ -59,7 +59,7 @@ fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.subtracting(rangeToSubtract
 }
 
 
-fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.toSequence(nextFunction: (Bound) -> Bound?) =
+public fun <Bound : Comparable<Bound>> HalfOpenRange<Bound>.toSequence(nextFunction: (Bound) -> Bound?): Sequence<Bound> =
 	when {
 		isEmpty() -> emptySequence()
 		else -> generateSequence(start) { start ->
@@ -94,5 +94,5 @@ private class HalfOpenComparableRange<Bound : Comparable<Bound>>(
 }
 
 
-infix fun <Bound : Comparable<Bound>> Bound.rangeToExcluding(that: Bound): HalfOpenRange<Bound> =
+public infix fun <Bound : Comparable<Bound>> Bound.rangeToExcluding(that: Bound): HalfOpenRange<Bound> =
 	HalfOpenComparableRange(this, that)

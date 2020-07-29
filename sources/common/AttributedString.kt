@@ -4,13 +4,13 @@ import kotlin.jvm.*
 import kotlin.math.*
 
 
-class AttributedString private constructor(
-	val string: String,
+public class AttributedString private constructor(
+	public val string: String,
 	private val attributesByRange: Map<Range, StringAttributeMap>?,
 	@Suppress("UNUSED_PARAMETER") damnJvm: Unit
 ) : CharSequence {
 
-	constructor(string: String, attributes: StringAttributeMap = emptyStringAttributes()) : this(
+	public constructor(string: String, attributes: StringAttributeMap = emptyStringAttributes()) : this(
 		string = string,
 		attributesByRange = if (string.isNotEmpty() && !attributes.isEmpty()) {
 			_TreeMap<Range, StringAttributeMap>().apply {
@@ -46,12 +46,12 @@ class AttributedString private constructor(
 	}
 
 
-	inline fun <Attribute, reified Value> attribute(attribute: Attribute, at: Int)
+	public inline fun <Attribute, reified Value> attribute(attribute: Attribute, at: Int): Value?
 		where Attribute : StringAttribute<Value>, Value : Any =
 		attribute(attribute as StringAttribute<*>, at = at) as? Value
 
 
-	fun attributes(at: Int): StringAttributeMap {
+	public fun attributes(at: Int): StringAttributeMap {
 		checkIndex(at)
 
 		val attributesByRange = attributesByRange ?: return emptyStringAttributes()
@@ -87,7 +87,7 @@ class AttributedString private constructor(
 	}
 
 
-	inline fun <Attribute, reified Value> enumerateAttribute(attribute: Attribute, crossinline block: (value: Value, range: Range) -> Unit)
+	public inline fun <Attribute, reified Value> enumerateAttribute(attribute: Attribute, crossinline block: (value: Value, range: Range) -> Unit)
 		where Attribute : StringAttribute<Value>, Value : Any {
 		enumerateAttribute(attribute as StringAttribute<*>) { value, range ->
 			if (value is Value) {
@@ -97,7 +97,7 @@ class AttributedString private constructor(
 	}
 
 
-	fun enumerateComponents(block: (start: Int, end: Int, attributes: StringAttributeMap) -> Unit) {
+	public fun enumerateComponents(block: (start: Int, end: Int, attributes: StringAttributeMap) -> Unit) {
 		val attributesByRange = attributesByRange
 		if (attributesByRange == null || attributesByRange.isEmpty() || string.isEmpty()) {
 			block(0, string.length, emptyStringAttributes())
@@ -132,31 +132,31 @@ class AttributedString private constructor(
 	}
 
 
-	override fun get(index: Int) =
+	override fun get(index: Int): Char =
 		string[index]
 
 
-	val hasAttributes
+	public val hasAttributes: Boolean
 		get() = attributesByRange?.values?.any { it.isNotEmpty() } ?: false
 
 
-	override fun hashCode() =
+	override fun hashCode(): Int =
 		string.hashCode() xor (attributesByRange?.hashCode() ?: 0) // TODO must normalize attributes
 
 
-	override val length
+	override val length: Int
 		get() = string.length
 
 
-	override fun subSequence(startIndex: Int, endIndex: Int) =
+	override fun subSequence(startIndex: Int, endIndex: Int): CharSequence =
 		string.subSequence(startIndex, endIndex)
 
 
-	fun toBuilder() =
+	public fun toBuilder(): Builder =
 		Builder(string = string, attributesByRange = attributesByRange)
 
 
-	fun toDebugString() =
+	public fun toDebugString(): String =
 		buildString {
 			append(string)
 			append('\n')
@@ -172,14 +172,14 @@ class AttributedString private constructor(
 		}
 
 
-	override fun toString() =
+	override fun toString(): String =
 		string
 
 
-	companion object;
+	public companion object;
 
 
-	data class Range(
+	public data class Range(
 		val start: Int,
 		val endExclusive: Int
 	) : Comparable<Range> {
@@ -201,15 +201,15 @@ class AttributedString private constructor(
 		}
 
 
-		override fun toString() =
+		override fun toString(): String =
 			"$start ..< $endExclusive"
 
 
-		companion object
+		public companion object
 	}
 
 
-	class Builder internal constructor(string: String = "", attributesByRange: Map<Range, StringAttributeMap>? = null) : CharSequence {
+	public class Builder internal constructor(string: String = "", attributesByRange: Map<Range, StringAttributeMap>? = null) : CharSequence {
 
 		private val attributesByRange: _TreeMap<MutableRange, MutableStringAttributeMap> = attributesByRange
 			?.entries
@@ -219,13 +219,13 @@ class AttributedString private constructor(
 		private val stringBuilder = StringBuilder(string)
 
 
-		fun <Attribute, Value> addAttribute(attribute: Attribute, value: Value, from: Int, to: Int)
+		public fun <Attribute, Value> addAttribute(attribute: Attribute, value: Value, from: Int, to: Int)
 			where Attribute : StringAttribute<Value>, Value : Any {
 			addAttributes(stringAttributesOf(attribute with value), from = from, to = to)
 		}
 
 
-		fun addAttributes(attributes: StringAttributeMap, from: Int, to: Int) {
+		public fun addAttributes(attributes: StringAttributeMap, from: Int, to: Int) {
 			checkRange(from, to, forAppend = false)
 
 			if (from == to || attributes.isEmpty()) {
@@ -298,12 +298,12 @@ class AttributedString private constructor(
 		}
 
 
-		fun append(attributedString: AttributedString) {
+		public fun append(attributedString: AttributedString) {
 			replace(start = length, endExclusive = length, newValue = attributedString)
 		}
 
 
-		fun append(string: String, attributes: StringAttributeMap = emptyStringAttributes(), extendingPreviousAttributes: Boolean = false) {
+		public fun append(string: String, attributes: StringAttributeMap = emptyStringAttributes(), extendingPreviousAttributes: Boolean = false) {
 			if (string.isEmpty()) {
 				return
 			}
@@ -336,15 +336,15 @@ class AttributedString private constructor(
 		}
 
 
-		override fun get(index: Int) =
+		override fun get(index: Int): Char =
 			stringBuilder[index]
 
 
-		override val length
+		override val length: Int
 			get() = stringBuilder.length
 
 
-		fun replace(start: Int, endExclusive: Int, newValue: AttributedString) {
+		public fun replace(start: Int, endExclusive: Int, newValue: AttributedString) {
 			replace(start = start, endExclusive = endExclusive, newValue = newValue.string)
 
 			newValue.enumerateComponents { startInNewValue, endInNewValue, attributes ->
@@ -357,7 +357,7 @@ class AttributedString private constructor(
 		}
 
 
-		fun replace(start: Int, endExclusive: Int, newValue: String, attributes: StringAttributeMap = emptyStringAttributes()) {
+		public fun replace(start: Int, endExclusive: Int, newValue: String, attributes: StringAttributeMap = emptyStringAttributes()) {
 			checkRange(start, endExclusive, forAppend = true)
 
 			val substringLengthBeforeMutation = endExclusive - start
@@ -376,7 +376,7 @@ class AttributedString private constructor(
 			val endBeforeMutation = endExclusive
 			val lengthBeforeMutation = stringBuilder.length
 
-			stringBuilder.replace(start, endExclusive, newValue)
+			stringBuilder.replaceRange(startIndex = start, endIndex = endExclusive, replacement = newValue)
 
 			val lengthAfterMutation = stringBuilder.length
 			val substringLengthOffset = lengthAfterMutation - lengthBeforeMutation
@@ -478,7 +478,7 @@ class AttributedString private constructor(
 
 
 		@OptIn(ExperimentalStdlibApi::class)
-		fun replace(oldValue: String, newValue: AttributedString) {
+		public fun replace(oldValue: String, newValue: AttributedString) {
 			var index = stringBuilder.lastIndexOf(oldValue)
 			while (index >= 0) {
 				val oldValueLength = oldValue.length
@@ -493,7 +493,7 @@ class AttributedString private constructor(
 
 
 		@OptIn(ExperimentalStdlibApi::class)
-		fun replace(oldValue: String, newValue: String, attributes: StringAttributeMap = emptyStringAttributes()) {
+		public fun replace(oldValue: String, newValue: String, attributes: StringAttributeMap = emptyStringAttributes()) {
 			var index = stringBuilder.lastIndexOf(oldValue)
 			while (index >= 0) {
 				val oldValueLength = oldValue.length
@@ -507,15 +507,15 @@ class AttributedString private constructor(
 		}
 
 
-		val string
+		public val string: String
 			get() = stringBuilder.toString()
 
 
-		override fun subSequence(startIndex: Int, endIndex: Int) =
+		override fun subSequence(startIndex: Int, endIndex: Int): CharSequence =
 			stringBuilder.subSequence(startIndex, endIndex)
 
 
-		fun toAttributedString() =
+		public fun toAttributedString(): AttributedString =
 			AttributedString(
 				string = string,
 				attributesByRange = attributesByRange.entries.associateTo(_TreeMap()) { Pair(it.key.toImmutable(), it.value.toImmutable()) },
@@ -527,16 +527,16 @@ class AttributedString private constructor(
 			MutableRange(start, endExclusive)
 
 
-		override fun toString() =
+		override fun toString(): String =
 			string
 
 
-		companion object;
+		public companion object;
 
 
 		private data class MutableRange(
-			internal var start: Int,
-			internal var endExclusive: Int
+			var start: Int,
+			var endExclusive: Int
 		) : Comparable<MutableRange> {
 
 			init {
@@ -554,23 +554,23 @@ class AttributedString private constructor(
 			}
 
 
-			internal fun intersects(other: MutableRange) =
+			fun intersects(other: MutableRange) =
 				(start < other.endExclusive && endExclusive > other.start)
 
 
-			internal fun toImmutable() = Range(start, endExclusive)
+			fun toImmutable() = Range(start, endExclusive)
 		}
 	}
 }
 
 
-fun buildAttributedString(builderAction: AttributedString.Builder.() -> Unit) =
+public fun buildAttributedString(builderAction: AttributedString.Builder.() -> Unit): AttributedString =
 	AttributedString.Builder().apply { builderAction() }.toAttributedString()
 
 
-fun buildAttributedString(string: String, builderAction: AttributedString.Builder.() -> Unit) =
+public fun buildAttributedString(string: String, builderAction: AttributedString.Builder.() -> Unit): AttributedString =
 	AttributedString.Builder(string = string).apply { builderAction() }.toAttributedString()
 
 
-fun String.toAttributedString(attributes: StringAttributeMap = emptyStringAttributes()) =
+public fun String.toAttributedString(attributes: StringAttributeMap = emptyStringAttributes()): AttributedString =
 	AttributedString(this, attributes = attributes)

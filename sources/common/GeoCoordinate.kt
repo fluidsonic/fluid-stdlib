@@ -5,7 +5,7 @@ import kotlin.math.*
 
 
 @Serializable
-data class GeoCoordinate(
+public data class GeoCoordinate(
 	val latitude: Double,
 	val longitude: Double
 ) {
@@ -25,7 +25,7 @@ data class GeoCoordinate(
 	 * *
 	 * @return the distance between this and the other geo coordinate in meters.
 	 */
-	fun distanceTo(coordinate: GeoCoordinate): Double {
+	public fun distanceTo(coordinate: GeoCoordinate): Double {
 		val sinHalfLatitudeDistance = sin(degreesToRadians(coordinate.latitude - latitude) * 0.5)
 		val sinHalfLongitudeDistance = sin(degreesToRadians(coordinate.longitude - longitude) * 0.5)
 		val a = sinHalfLatitudeDistance * sinHalfLatitudeDistance + cos(degreesToRadians(latitude)) * cos(degreesToRadians(coordinate.latitude)) * sinHalfLongitudeDistance * sinHalfLongitudeDistance
@@ -35,11 +35,11 @@ data class GeoCoordinate(
 	}
 
 
-	override fun toString() =
+	override fun toString(): String =
 		"$latitude,$longitude"
 
 
-	companion object {
+	public companion object {
 
 		private const val earthRadius = 6378137.0 // in meters
 	}

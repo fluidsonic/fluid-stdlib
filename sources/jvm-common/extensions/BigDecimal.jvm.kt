@@ -3,9 +3,9 @@ package io.fluidsonic.stdlib
 import java.math.*
 
 
-val BigDecimal.isInteger
+public val BigDecimal.isInteger: Boolean
 	get() = scale() <= 0 || signum() == 0 || remainder(BigDecimal.ONE) == BigDecimal.ZERO
 
 
-val BigDecimal.isZero
+public val BigDecimal.isZero: Boolean
 	get() = compareTo(BigDecimal.ZERO) == 0
