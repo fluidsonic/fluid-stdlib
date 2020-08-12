@@ -1,5 +1,6 @@
 package io.fluidsonic.stdlib
 
+import io.fluidsonic.locale.*
 import io.fluidsonic.stdlib.Currency_Static.allCurrencyCodes
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
@@ -25,7 +26,7 @@ public /*inline*/ class Currency internal constructor(
 
 
 	public val name: String
-		get() = name(Locale.englishInUnitedStates)
+		get() = name(Locale.enUS)
 
 
 	override fun toString(): String =

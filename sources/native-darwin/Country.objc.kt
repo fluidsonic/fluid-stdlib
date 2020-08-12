@@ -1,5 +1,6 @@
 package io.fluidsonic.stdlib
 
+import io.fluidsonic.locale.*
 import platform.Foundation.*
 import platform.Foundation.NSLocale as PlatformLocale
 
