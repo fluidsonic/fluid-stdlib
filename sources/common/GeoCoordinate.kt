@@ -1,19 +1,16 @@
 package io.fluidsonic.stdlib
 
-import kotlinx.serialization.*
 import kotlin.math.*
 
 
-@Serializable
 public data class GeoCoordinate(
 	val latitude: Double,
 	val longitude: Double
 ) {
 
-	//	TODO reactivate once https://github.com/JetBrains/kotlin-native/issues/3019 is fixed
 	init {
-//		require(latitude.isFinite()) { "latitude must be a finite value" }
-//		require(longitude.isFinite()) { "longitude must be a finite value" }
+		require(latitude.isFinite()) { "latitude must be a finite value" }
+		require(longitude.isFinite()) { "longitude must be a finite value" }
 
 		freeze()
 	}
