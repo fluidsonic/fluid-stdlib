@@ -1,10 +1,19 @@
 package io.fluidsonic.stdlib
 
 
+// FIXME no inline class b/c it still causes ClassCastExceptions in Kotlin 1.4.10
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-public inline class Maybe<out Value> @PublishedApi internal constructor(
-	@PublishedApi internal val _value: Any?
+public class Maybe<out Value> @PublishedApi internal constructor(
+	@PublishedApi internal val _value: Any?,
 ) {
+
+	override fun equals(other: Any?): Boolean =
+		this === other || (other is Maybe<*> && _value == other._value)
+
+
+	override fun hashCode(): Int =
+		_value.hashCode()
+
 
 	@Suppress("NOTHING_TO_INLINE", "UNCHECKED_CAST")
 	public inline fun getOrNull(): Value? =
@@ -29,7 +38,7 @@ public inline class Maybe<out Value> @PublishedApi internal constructor(
 
 
 	@Suppress("UNCHECKED_CAST")
-	public inline fun <MappedValue : Any> map(mapping: (Value) -> MappedValue?): Maybe<MappedValue> =
+	public inline fun <TransformedValue> map(mapping: (Value) -> TransformedValue): Maybe<TransformedValue> =
 		if (hasValue()) Maybe(mapping(_value as Value))
 		else nothing
 
@@ -66,5 +75,7 @@ public inline fun <Value> Maybe<Value>.getOrElse(default: () -> Value): Value =
 
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <Value : Any, MappedValue : Any> Maybe<Value?>.mapIfNotNull(mapping: (Value) -> MappedValue?): Maybe<MappedValue?> =
+public inline fun <Value : Any, TransformedValue> Maybe<Value?>.mapIfNotNull(
+	mapping: (Value) -> TransformedValue?,
+): Maybe<TransformedValue?> =
 	map { it?.let(mapping) }
