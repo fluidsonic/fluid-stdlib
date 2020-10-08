@@ -85,8 +85,12 @@ private class HalfOpenComparableRange<Bound : Comparable<Bound>>(
 		this === other || (other is HalfOpenRange<*> && start == other.start && endExclusive == other.endExclusive)
 
 
-	override fun hashCode() =
-		hash { start x endExclusive }
+	override fun hashCode(): Int {
+		var result = start.hashCode()
+		result = 31 * result + endExclusive.hashCode()
+
+		return result
+	}
 
 
 	override fun toString() =

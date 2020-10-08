@@ -44,8 +44,12 @@ public class HalfOpenIntRange(
 			(other is HalfOpenRange<*> && startValue == other.start && endValueExclusive == other.endExclusive)
 
 
-	override fun hashCode(): Int =
-		hash { startValue x endValueExclusive }
+	override fun hashCode(): Int {
+		var result = startValue
+		result = 31 * result + endValueExclusive
+
+		return result
+	}
 
 
 	override fun isEmpty(): Boolean =
