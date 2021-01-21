@@ -51,7 +51,7 @@ public class Maybe<out Value> @PublishedApi internal constructor(
 	public companion object {
 
 		@PublishedApi
-		internal val nothingValue = Any()
+		internal val nothingValue: Any = Any()
 
 		public val nothing: Maybe<Nothing> = Maybe(nothingValue)
 

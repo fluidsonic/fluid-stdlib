@@ -1,7 +1,7 @@
 import io.fluidsonic.gradle.*
 
 plugins {
-	id("io.fluidsonic.gradle") version "1.1.10"
+	id("io.fluidsonic.gradle") version "1.1.17"
 }
 
 fluidLibrary(name = "stdlib", version = "0.10.3")
@@ -10,7 +10,7 @@ fluidLibraryModule(description = "Potentially useful Kotlin standard library add
 	targets {
 		common {
 			dependencies {
-				implementation(fluid("locale", "0.9.3"))
+				implementation(fluid("locale", "0.9.4"))
 			}
 		}
 

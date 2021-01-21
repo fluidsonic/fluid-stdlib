@@ -3,6 +3,24 @@ package io.fluidsonic.stdlib
 import kotlin.contracts.*
 
 
+public inline fun <reified T : Any> Any.cast(): T {
+	contract {
+		returns() implies (this@cast is T)
+	}
+
+	return this as T
+}
+
+
+public inline fun <reified T : Any> Any.castOrNull(): T? {
+	contract {
+		returnsNotNull() implies (this@castOrNull is T)
+	}
+
+	return this as? T
+}
+
+
 internal expect inline fun <T> T.freeze(): T
 
 
