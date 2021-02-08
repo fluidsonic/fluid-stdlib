@@ -4,7 +4,7 @@ plugins {
 	id("io.fluidsonic.gradle") version "1.1.21"
 }
 
-fluidLibrary(name = "stdlib", version = "0.10.5-kotlin-1.5")
+fluidLibrary(name = "stdlib", version = "0.10.5")
 
 fluidLibraryModule(description = "Potentially useful Kotlin standard library additions") {
 	targets {

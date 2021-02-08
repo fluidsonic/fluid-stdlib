@@ -22,7 +22,7 @@ Installation
 
 ```kotlin
 dependencies {
-	implementation("io.fluidsonic.stdlib:fluid-stdlib:0.10.4")
+	implementation("io.fluidsonic.stdlib:fluid-stdlib:0.10.5")
 }
 ```
 
