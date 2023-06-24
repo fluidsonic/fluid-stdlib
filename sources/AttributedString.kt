@@ -24,11 +24,6 @@ public class AttributedString private constructor(
 	)
 
 
-	init {
-		freeze()
-	}
-
-
 	@JvmName("_attribute")
 	@PublishedApi
 	internal fun attribute(attribute: StringAttribute<*>, at: Int): Any? {
@@ -186,8 +181,6 @@ public class AttributedString private constructor(
 
 		init {
 			require(endExclusive >= start)
-
-			freeze()
 		}
 
 

@@ -11,8 +11,6 @@ public data class SemanticVersion(
 		require(major >= 0) { "major must not be negative" }
 		require(minor >= 0) { "minor must not be negative" }
 		require(patch >= 0) { "patch must not be negative" }
-
-		freeze()
 	}
 
 

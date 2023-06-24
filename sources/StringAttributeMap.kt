@@ -131,11 +131,6 @@ private class SingleElementStringAttributeMap(
 	private val map = mapOf(attribute to value)
 
 
-	init {
-		freeze()
-	}
-
-
 	override val attributes: Set<StringAttribute<*>>
 		get() = map.keys
 
@@ -184,11 +179,6 @@ private class SingleElementStringAttributeMap(
 private class StringAttributeHashMap(
 	val map: HashMap<StringAttribute<*>, Any>
 ) : StringAttributeMap {
-
-	init {
-		freeze()
-	}
-
 
 	override val attributes: Set<StringAttribute<*>>
 		get() = map.keys

@@ -11,8 +11,6 @@ public data class GeoCoordinate(
 	init {
 		require(latitude.isFinite()) { "latitude must be a finite value" }
 		require(longitude.isFinite()) { "longitude must be a finite value" }
-
-		freeze()
 	}
 
 	/**

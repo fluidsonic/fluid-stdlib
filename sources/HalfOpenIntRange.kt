@@ -12,11 +12,6 @@ public class HalfOpenIntRange(
 	public val endValueExclusive: Int = endExclusive
 
 
-	init {
-		freeze()
-	}
-
-
 	@Deprecated(
 		message = "use .endValueInclusive to avoid boxing",
 		replaceWith = ReplaceWith("endValueExclusive"),
