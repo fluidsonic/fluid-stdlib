@@ -3,6 +3,7 @@ package io.fluidsonic.stdlib
 import kotlin.math.*
 
 
+/** A geographic coordinate represented by [latitude] and [longitude]. */
 public data class GeoCoordinate(
 	val latitude: Double,
 	val longitude: Double
@@ -13,13 +14,7 @@ public data class GeoCoordinate(
 		require(longitude.isFinite()) { "longitude must be a finite value" }
 	}
 
-	/**
-	 * Computes the distance between two geo coordinates in meters.
-
-	 * @param coordinate the other coordinate
-	 * *
-	 * @return the distance between this and the other geo coordinate in meters.
-	 */
+	/** Returns the distance to [coordinate] in meters using the haversine formula. */
 	public fun distanceTo(coordinate: GeoCoordinate): Double {
 		val sinHalfLatitudeDistance = sin(degreesToRadians(coordinate.latitude - latitude) * 0.5)
 		val sinHalfLongitudeDistance = sin(degreesToRadians(coordinate.longitude - longitude) * 0.5)

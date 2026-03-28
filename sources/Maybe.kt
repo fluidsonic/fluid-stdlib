@@ -1,8 +1,7 @@
 package io.fluidsonic.stdlib
 
 
-// FIXME no inline class b/c it still causes ClassCastExceptions in Kotlin 1.4.10
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+/** An optional-like wrapper that distinguishes between "no value" and "a value that may be null". */
 public class Maybe<out Value> @PublishedApi internal constructor(
 	@PublishedApi internal val _value: Any?,
 ) {
@@ -15,28 +14,33 @@ public class Maybe<out Value> @PublishedApi internal constructor(
 		_value.hashCode()
 
 
+	/** Returns the contained value, or `null` if this is [nothing]. */
 	@Suppress("NOTHING_TO_INLINE", "UNCHECKED_CAST")
 	public inline fun getOrNull(): Value? =
 		if (hasValue()) _value as Value
 		else null
 
 
+	/** Returns `true` if this instance contains a value (i.e. is not [nothing]). */
 	@Suppress("NOTHING_TO_INLINE")
 	public inline fun hasValue(): Boolean =
 		!isNothing()
 
 
+	/** Returns the contained value, or throws [IllegalStateException] if this is [nothing]. */
 	@Suppress("NOTHING_TO_INLINE", "UNCHECKED_CAST")
 	public inline fun get(): Value =
 		if (hasValue()) _value as Value
 		else error("Cannot get value from Maybe.nothing. Check with .hasValue() first.")
 
 
+	/** Returns `true` if this instance represents the absence of a value. */
 	@Suppress("NOTHING_TO_INLINE")
 	public inline fun isNothing(): Boolean =
 		_value === nothingValue
 
 
+	/** Transforms the contained value using [mapping], or returns [nothing] if no value is present. */
 	@Suppress("UNCHECKED_CAST")
 	public inline fun <TransformedValue> map(mapping: (Value) -> TransformedValue): Maybe<TransformedValue> =
 		if (hasValue()) Maybe(mapping(_value as Value))
@@ -53,14 +57,17 @@ public class Maybe<out Value> @PublishedApi internal constructor(
 		@PublishedApi
 		internal val nothingValue: Any = Any()
 
+		/** A [Maybe] instance representing the absence of a value. */
 		public val nothing: Maybe<Nothing> = Maybe(nothingValue)
 
 
+		/** Wraps the given [value] in a [Maybe]. */
 		@Suppress("NOTHING_TO_INLINE")
 		public inline fun <Value> of(value: Value): Maybe<Value> =
 			Maybe(value)
 
 
+		/** Wraps the given [value] in a [Maybe], treating `null` as [nothing]. */
 		@Suppress("NOTHING_TO_INLINE")
 		public inline fun <Value : Any> ofNullable(value: Value?): Maybe<Value> =
 			Maybe(value ?: nothingValue)
@@ -68,12 +75,14 @@ public class Maybe<out Value> @PublishedApi internal constructor(
 }
 
 
+/** Returns the contained value, or the result of [default] if this is [Maybe.nothing]. */
 @Suppress("UNCHECKED_CAST")
 public inline fun <Value> Maybe<Value>.getOrElse(default: () -> Value): Value =
 	if (hasValue()) _value as Value
 	else default()
 
 
+/** Transforms the contained value using [mapping] if it is non-null, preserving `null` and [Maybe.nothing] as-is. */
 @Suppress("UNCHECKED_CAST")
 public inline fun <Value : Any, TransformedValue> Maybe<Value?>.mapIfNotNull(
 	mapping: (Value) -> TransformedValue?,

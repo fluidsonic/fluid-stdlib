@@ -95,7 +95,6 @@ class TestTreeMap {
 	}
 
 
-	@Ignore
 	@Test
 	fun testValues() {
 		val map = _TreeMap<Int, String>()

@@ -4,6 +4,7 @@ import java.text.*
 import java.util.Locale
 
 
+/** The number of Unicode grapheme clusters in this string. */
 public val String.unicodeLength: Int
 	get() {
 		val characterIterator = BreakIterator.getCharacterInstance(Locale.ROOT)
@@ -18,6 +19,7 @@ public val String.unicodeLength: Int
 	}
 
 
+/** Returns the substring starting at the given grapheme cluster [startIndex]. */
 public fun String.unicodeSubstring(startIndex: Int): String {
 	require(startIndex >= 0) { "startIndex must be >= 0" }
 
@@ -39,6 +41,7 @@ public fun String.unicodeSubstring(startIndex: Int): String {
 }
 
 
+/** Returns the substring between grapheme cluster indices [startIndex] (inclusive) and [endIndex] (exclusive). */
 public fun String.unicodeSubstring(startIndex: Int, endIndex: Int): String {
 	require(startIndex >= 0) { "startIndex must be >= 0" }
 	require(endIndex >= startIndex) { "endIndex must be >= startIndex" }

@@ -1,6 +1,7 @@
 package io.fluidsonic.stdlib
 
 
+/** Returns this string truncated to [maximumLength] characters, appending [truncationSuffix] if truncated. */
 public fun String.truncatedTo(maximumLength: Int, truncationSuffix: String = ""): String {
 	require(maximumLength >= 0) { "maximumLength must be >= 0" }
 

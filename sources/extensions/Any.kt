@@ -23,6 +23,7 @@ public inline fun <reified T : Any> Any.castOrNull(): T? {
 }
 
 
+/** Returns this value if non-null, otherwise the result of [defaultValue]. */
 public inline fun <T : Any> T?.ifNull(defaultValue: () -> T): T {
 	contract {
 		callsInPlace(defaultValue, InvocationKind.AT_MOST_ONCE)

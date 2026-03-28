@@ -1,7 +1,6 @@
 package io.fluidsonic.stdlib
 
 
-// TODO remove
 internal actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 
 	private val container = hashMapOf<K, V>()
@@ -9,52 +8,85 @@ internal actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 	private val _keys = KeySet()
 
 
-	override fun clear() {
+	actual override fun clear() {
 		container.clear()
 	}
 
 
-	override fun containsKey(key: K) =
+	actual override fun containsKey(key: K) =
 		container.containsKey(key)
 
 
-	override fun containsValue(value: V) =
+	actual override fun containsValue(value: V) =
 		container.containsValue(value)
 
 
-	override fun get(key: K) =
+	actual override fun get(key: K) =
 		container[key]
 
 
-	override fun isEmpty() =
+	actual override fun isEmpty() =
 		container.isEmpty()
 
 
-	override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
+	actual override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
 		get() = _entries
 
 
-	override val keys: MutableSet<K>
+	actual override val keys: MutableSet<K>
 		get() = _keys
 
 
-	override val values: MutableCollection<V>
-		get() = throw UnsupportedOperationException()
+	actual override val values: MutableCollection<V>
+		get() = object : AbstractMutableCollection<V>() {
+			override val size get() = container.size
+
+			override fun add(element: V): Boolean =
+				throw UnsupportedOperationException()
+
+			override fun iterator(): MutableIterator<V> {
+				@Suppress("UNCHECKED_CAST")
+				val sortedKeys = (container.keys as MutableSet<Comparable<Any>>).sorted() as List<K>
+				val index = sortedKeys.iterator()
+
+				return object : MutableIterator<V> {
+					private var currentKey: K? = null
+					private var hasCurrent = false
+
+					override fun hasNext() = index.hasNext()
+
+					override fun next(): V {
+						val key = index.next()
+						currentKey = key
+						hasCurrent = true
+						return container[key]!!
+					}
+
+					override fun remove() {
+						if (!hasCurrent) return
+						val key = currentKey ?: return
+						currentKey = null
+						hasCurrent = false
+						container.remove(key)
+					}
+				}
+			}
+		}
 
 
-	override fun put(key: K, value: V) =
+	actual override fun put(key: K, value: V) =
 		container.put(key, value)
 
 
-	override fun putAll(from: Map<out K, V>) =
+	actual override fun putAll(from: Map<out K, V>) =
 		container.putAll(from)
 
 
-	override fun remove(key: K) =
+	actual override fun remove(key: K) =
 		container.remove(key)
 
 
-	override val size
+	actual override val size
 		get() = container.size
 
 
@@ -86,6 +118,7 @@ internal actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 
 
 		override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> {
+			@Suppress("UNCHECKED_CAST")
 			val sortedEntries = (container.entries as Collection<MutableMap.MutableEntry<Comparable<Any>, V>>).sortedBy { it.key }
 				as List<MutableMap.MutableEntry<K, V>>
 			val iterator = sortedEntries.iterator()
@@ -161,6 +194,7 @@ internal actual class _TreeMap<K, V> actual constructor() : MutableMap<K, V> {
 
 
 		override fun iterator(): MutableIterator<K> {
+			@Suppress("UNCHECKED_CAST")
 			val sortedKeys = (container.keys as MutableSet<Comparable<Any>>).sorted() as List<K>
 			val iterator = sortedKeys.iterator()
 

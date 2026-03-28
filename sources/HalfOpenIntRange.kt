@@ -3,12 +3,16 @@ package io.fluidsonic.stdlib
 import kotlin.math.*
 
 
+/** A half-open range of [Int] values, specialized to avoid boxing. */
 public class HalfOpenIntRange(
 	start: Int,
 	endExclusive: Int
 ) : HalfOpenRange<Int>, Iterable<Int> {
 
+	/** The inclusive lower bound. */
 	public val startValue: Int = start
+
+	/** The exclusive upper bound. */
 	public val endValueExclusive: Int = endExclusive
 
 
@@ -21,10 +25,12 @@ public class HalfOpenIntRange(
 		get() = endValueExclusive
 
 
+	/** Destructuring component for [startValue]. */
 	public operator fun component1(): Int =
 		startValue
 
 
+	/** Destructuring component for [endValueExclusive]. */
 	public operator fun component2(): Int =
 		endValueExclusive
 
@@ -75,30 +81,37 @@ public class HalfOpenIntRange(
 }
 
 
+/** Returns `true` if this range fully contains [other]. */
 public fun HalfOpenIntRange.contains(other: HalfOpenIntRange): Boolean =
 	contains(other.startValue) && other.endValueExclusive <= endValueExclusive
 
 
+/** Returns a new range with start and end swapped. */
 public fun HalfOpenIntRange.flipped(): HalfOpenIntRange =
 	endValueExclusive rangeToExcluding startValue
 
 
+/** Returns the intersection with [other], or `null` if the ranges do not overlap. */
 public fun HalfOpenIntRange.intersection(other: HalfOpenIntRange): HalfOpenIntRange? =
 	overlaps(other).thenTake { max(startValue, other.startValue) rangeToExcluding min(endValueExclusive, other.endValueExclusive) }
 
 
+/** Returns `true` if this range overlaps with [other]. */
 public fun HalfOpenIntRange.overlaps(other: HalfOpenIntRange): Boolean =
 	contains(other.startValue) || other.contains(startValue)
 
 
+/** Transforms both bounds using [transform] and returns a new [HalfOpenIntRange]. */
 public inline fun HalfOpenIntRange.mapBounds(transform: (Int) -> Int): HalfOpenIntRange =
 	transform(startValue) rangeToExcluding transform(endValueExclusive)
 
 
+/** Transforms both bounds using [transform] and returns a new [HalfOpenRange]. */
 public inline fun <R : Comparable<R>> HalfOpenIntRange.mapBounds(transform: (Int) -> R): HalfOpenRange<R> =
 	transform(startValue) rangeToExcluding transform(endValueExclusive)
 
 
+/** Returns the portions of this range that remain after subtracting [rangeToSubtract]. */
 public fun HalfOpenIntRange.subtracting(rangeToSubtract: HalfOpenIntRange): List<HalfOpenIntRange> {
 	if (rangeToSubtract.startValue >= endValueExclusive || rangeToSubtract.endValueExclusive <= startValue)
 		return listOf(this)
@@ -113,6 +126,7 @@ public fun HalfOpenIntRange.subtracting(rangeToSubtract: HalfOpenIntRange): List
 }
 
 
+/** Converts this range to a [Sequence] by repeatedly applying [nextFunction] starting from [HalfOpenIntRange.startValue]. */
 public fun HalfOpenIntRange.toSequence(nextFunction: (Int) -> Int?): Sequence<Int> =
 	when {
 		isEmpty() -> emptySequence()
@@ -122,5 +136,6 @@ public fun HalfOpenIntRange.toSequence(nextFunction: (Int) -> Int?): Sequence<In
 	}
 
 
+/** Creates a [HalfOpenIntRange] from `this` (inclusive) to [that] (exclusive). */
 public infix fun Int.rangeToExcluding(that: Int): HalfOpenIntRange =
 	HalfOpenIntRange(start = this, endExclusive = that)

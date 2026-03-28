@@ -3,10 +3,10 @@ fluid-stdlib
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.fluidsonic.stdlib/fluid-stdlib?label=Maven%20Central)](https://search.maven.org/artifact/io.fluidsonic.stdlib/fluid-stdlib)
 [![Tests](https://github.com/fluidsonic/fluid-stdlib/workflows/Tests/badge.svg)](https://github.com/fluidsonic/fluid-stdlib/actions?workflow=Tests)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.8.22-blue.svg)](https://github.com/JetBrains/kotlin/releases/v1.8.22)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.20%20(JVM,%20JS)-blue.svg)](https://github.com/JetBrains/kotlin/releases/v2.3.20)
 [![#fluid-libraries Slack Channel](https://img.shields.io/badge/slack-%23fluid--libraries-543951.svg?label=Slack)](https://kotlinlang.slack.com/messages/C7UDFSVT2/)
 
-Potentially useful Kotlin standard library additions for JDK8+.
+Potentially useful Kotlin standard library additions for JDK 21+.
 
 **Discontinued**. Functionality is being split into separate libraries like these:
 

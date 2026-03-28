@@ -1,6 +1,7 @@
 package io.fluidsonic.stdlib
 
 
+/** A semantic version consisting of [major], [minor], and [patch] components. */
 public data class SemanticVersion(
 	val major: Int,
 	val minor: Int = 0,
@@ -38,6 +39,7 @@ public data class SemanticVersion(
 		private val pattern = Regex("(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?)?")
 
 
+		/** Parses a semantic version string like "1.2.3". Returns `null` if the format is invalid. */
 		public fun parse(string: String): SemanticVersion? {
 			val match = pattern.matchEntire(string) ?: return null
 

@@ -4,12 +4,15 @@ import kotlin.jvm.*
 import kotlin.math.*
 
 
+/** A string with typed attributes that can be applied to arbitrary character ranges. */
 public class AttributedString private constructor(
+	/** The plain string content without attributes. */
 	public val string: String,
 	private val attributesByRange: Map<Range, StringAttributeMap>?,
 	@Suppress("UNUSED_PARAMETER") damnJvm: Unit
 ) : CharSequence {
 
+	/** Creates an [AttributedString] from [string] with optional [attributes] applied to the entire string. */
 	public constructor(string: String, attributes: StringAttributeMap = emptyStringAttributes()) : this(
 		string = string,
 		attributesByRange = if (string.isNotEmpty() && !attributes.isEmpty()) {
@@ -41,11 +44,13 @@ public class AttributedString private constructor(
 	}
 
 
+	/** Returns the value of [attribute] at the given character index, or `null` if not set. */
 	public inline fun <Attribute, reified Value> attribute(attribute: Attribute, at: Int): Value?
 		where Attribute : StringAttribute<Value>, Value : Any =
 		attribute(attribute as StringAttribute<*>, at = at) as? Value
 
 
+	/** Returns all attributes at the given character index. */
 	public fun attributes(at: Int): StringAttributeMap {
 		checkIndex(at)
 
@@ -82,6 +87,7 @@ public class AttributedString private constructor(
 	}
 
 
+	/** Calls [block] for each range where [attribute] has a value. */
 	public inline fun <Attribute, reified Value> enumerateAttribute(attribute: Attribute, crossinline block: (value: Value, range: Range) -> Unit)
 		where Attribute : StringAttribute<Value>, Value : Any {
 		enumerateAttribute(attribute as StringAttribute<*>) { value, range ->
@@ -92,6 +98,7 @@ public class AttributedString private constructor(
 	}
 
 
+	/** Calls [block] for each contiguous component with uniform attributes. */
 	public fun enumerateComponents(block: (start: Int, end: Int, attributes: StringAttributeMap) -> Unit) {
 		val attributesByRange = attributesByRange
 		if (attributesByRange == null || attributesByRange.isEmpty() || string.isEmpty()) {
@@ -131,6 +138,7 @@ public class AttributedString private constructor(
 		string[index]
 
 
+	/** Returns `true` if any attribute is set on any range. */
 	public val hasAttributes: Boolean
 		get() = attributesByRange?.values?.any { it.isNotEmpty() } ?: false
 
@@ -147,10 +155,12 @@ public class AttributedString private constructor(
 		string.subSequence(startIndex, endIndex)
 
 
+	/** Returns a [Builder] initialized with the contents of this attributed string. */
 	public fun toBuilder(): Builder =
 		Builder(string = string, attributesByRange = attributesByRange)
 
 
+	/** Returns a string representation including attribute ranges, useful for debugging. */
 	public fun toDebugString(): String =
 		buildString {
 			append(string)
@@ -174,6 +184,7 @@ public class AttributedString private constructor(
 	public companion object;
 
 
+	/** A half-open character range within an [AttributedString]. */
 	public data class Range(
 		val start: Int,
 		val endExclusive: Int
@@ -202,6 +213,7 @@ public class AttributedString private constructor(
 	}
 
 
+	/** Mutable builder for constructing [AttributedString] instances. */
 	public class Builder internal constructor(string: String = "", attributesByRange: Map<Range, StringAttributeMap>? = null) : CharSequence {
 
 		private val attributesByRange: _TreeMap<MutableRange, MutableStringAttributeMap> = attributesByRange
@@ -212,12 +224,14 @@ public class AttributedString private constructor(
 		private val stringBuilder = StringBuilder(string)
 
 
+		/** Adds a single [attribute] with [value] to the character range [from] (inclusive) to [to] (exclusive). */
 		public fun <Attribute, Value> addAttribute(attribute: Attribute, value: Value, from: Int, to: Int)
 			where Attribute : StringAttribute<Value>, Value : Any {
 			addAttributes(stringAttributesOf(attribute with value), from = from, to = to)
 		}
 
 
+		/** Adds [attributes] to the character range [from] (inclusive) to [to] (exclusive). */
 		public fun addAttributes(attributes: StringAttributeMap, from: Int, to: Int) {
 			checkRange(from, to, forAppend = false)
 
@@ -291,11 +305,13 @@ public class AttributedString private constructor(
 		}
 
 
+		/** Appends [attributedString] to the end. */
 		public fun append(attributedString: AttributedString) {
 			replace(start = length, endExclusive = length, newValue = attributedString)
 		}
 
 
+		/** Appends [string] with optional [attributes] to the end. */
 		public fun append(string: String, attributes: StringAttributeMap = emptyStringAttributes(), extendingPreviousAttributes: Boolean = false) {
 			if (string.isEmpty()) {
 				return
@@ -337,6 +353,7 @@ public class AttributedString private constructor(
 			get() = stringBuilder.length
 
 
+		/** Replaces the character range [start] (inclusive) to [endExclusive] with [newValue], preserving its attributes. */
 		public fun replace(start: Int, endExclusive: Int, newValue: AttributedString) {
 			replace(start = start, endExclusive = endExclusive, newValue = newValue.string)
 
@@ -350,6 +367,7 @@ public class AttributedString private constructor(
 		}
 
 
+		/** Replaces the character range [start] (inclusive) to [endExclusive] with [newValue] and optional [attributes]. */
 		public fun replace(start: Int, endExclusive: Int, newValue: String, attributes: StringAttributeMap = emptyStringAttributes()) {
 			checkRange(start, endExclusive, forAppend = true)
 
@@ -470,7 +488,7 @@ public class AttributedString private constructor(
 		}
 
 
-		@OptIn(ExperimentalStdlibApi::class)
+		/** Replaces all occurrences of [oldValue] with [newValue], preserving its attributes. */
 		public fun replace(oldValue: String, newValue: AttributedString) {
 			var index = stringBuilder.lastIndexOf(oldValue)
 			while (index >= 0) {
@@ -485,7 +503,7 @@ public class AttributedString private constructor(
 		}
 
 
-		@OptIn(ExperimentalStdlibApi::class)
+		/** Replaces all occurrences of [oldValue] with [newValue] and optional [attributes]. */
 		public fun replace(oldValue: String, newValue: String, attributes: StringAttributeMap = emptyStringAttributes()) {
 			var index = stringBuilder.lastIndexOf(oldValue)
 			while (index >= 0) {
@@ -500,6 +518,7 @@ public class AttributedString private constructor(
 		}
 
 
+		/** The current plain string content of this builder. */
 		public val string: String
 			get() = stringBuilder.toString()
 
@@ -508,6 +527,7 @@ public class AttributedString private constructor(
 			stringBuilder.subSequence(startIndex, endIndex)
 
 
+		/** Builds and returns an immutable [AttributedString] from the current builder state. */
 		public fun toAttributedString(): AttributedString =
 			AttributedString(
 				string = string,
@@ -557,13 +577,16 @@ public class AttributedString private constructor(
 }
 
 
+/** Builds an [AttributedString] using the provided [builderAction]. */
 public fun buildAttributedString(builderAction: AttributedString.Builder.() -> Unit): AttributedString =
 	AttributedString.Builder().apply { builderAction() }.toAttributedString()
 
 
+/** Builds an [AttributedString] starting from [string] and applying [builderAction]. */
 public fun buildAttributedString(string: String, builderAction: AttributedString.Builder.() -> Unit): AttributedString =
 	AttributedString.Builder(string = string).apply { builderAction() }.toAttributedString()
 
 
+/** Converts this string to an [AttributedString] with optional [attributes]. */
 public fun String.toAttributedString(attributes: StringAttributeMap = emptyStringAttributes()): AttributedString =
 	AttributedString(this, attributes = attributes)
